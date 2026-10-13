@@ -105,7 +105,8 @@
     const assets = Math.max(number(assetsInput, defaults.assets), debt * 2, 1);
     assetsInput.value = assets;
     const valid = [sales, costRate, debt, debtSalesRate, growthRate, debtRate, term].every(Number.isFinite)
-      && sales >= 0 && costRate >= 0 && costRate <= 1 && debt >= 0 && debtSalesRate >= 0 && growthRate > -1 && debtRate >= 0 && term >= 1;
+      && sales >= 0 && costRate >= 0 && costRate <= 1
+      && debt >= 0 && debtSalesRate >= 0 && growthRate > -1 && debtRate >= 0 && term >= 1;
     lab.classList.toggle('has-error', !valid);
     if (!valid) {
       status.textContent = 'Revisa los campos amarillos: costos entre 0% y 100%, crecimiento mayor que −100%, tasa no negativa y plazo mínimo de un mes.';
@@ -129,7 +130,6 @@
     const cashAfterPayment = difference - payment;
     const leverageOutput = key => document.querySelector(`[data-leverage="${key}"]`);
     setText(leverageOutput('base-sales-b'), money(sales));
-    setText(leverageOutput('cost-rate-b'), percent(costRate));
     setText(leverageOutput('pre-sales-a'), money(preSalesA)); setText(leverageOutput('pre-sales-b'), money(preSalesB));
     setText(leverageOutput('growth-b'), percent(growthRate));
     setText(leverageOutput('projected-a'), money(projectedA)); setText(leverageOutput('projected-b'), money(projectedB));

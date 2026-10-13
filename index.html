@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#02090b" />
     <title>Finanzas Sin Filtro | Mtro. Luis Valladares</title>
-    <link rel="stylesheet" href="styles.css?v=59" />
+    <link rel="stylesheet" href="styles.css?v=60" />
   </head>
   <body>
     <main class="deck" aria-live="polite">
@@ -403,7 +403,7 @@
           <input id="lab-assets" type="hidden" value="10000" />
           <div class="leverage-row leverage-head"><div><span>Operación</span><small>Fórmula utilizada</small></div><strong>Caso A · Sin deuda</strong><strong>Caso B · Con deuda</strong></div>
           <div class="leverage-row editable-row"><div><span>Ventas base</span><small>Dato inicial</small></div><label>$ <input id="lab-sales" type="number" min="0" step="50" value="1500" inputmode="decimal" /></label><b data-leverage="base-sales-b">$1,500</b></div>
-          <div class="leverage-row editable-row"><div><span>Costos y gastos</span><small>Porcentaje de las ventas</small></div><label><input id="lab-cost-rate" type="number" min="0" max="100" step="1" value="70" inputmode="decimal" /> %</label><b data-leverage="cost-rate-b">70%</b></div>
+          <div class="leverage-row editable-row"><div><span>Costos y gastos %</span><small>Un mismo porcentaje para ambos casos</small></div><label class="shared-cost-field"><span>Aplica al Caso A y al Caso B</span><input id="lab-cost-rate" aria-label="Porcentaje de costos y gastos para ambos casos" type="number" min="0" max="100" step="1" value="70" inputmode="decimal" /> %</label></div>
           <div class="leverage-row editable-row"><div><span>Deuda utilizada</span><small>Recursos prestados en el caso B</small></div><b>$0</b><label>$ <input id="lab-debt" type="number" min="0" step="50" value="1500" inputmode="decimal" /></label></div>
           <div class="leverage-row editable-row"><div><span>Impacto de la deuda en ventas</span><small>Deuda × porcentaje de conversión</small></div><b>$0</b><label><input id="lab-debt-sales" type="number" min="0" step="5" value="100" inputmode="decimal" /> %</label></div>
           <div class="leverage-row"><div><span>Ventas antes del crecimiento</span><small>Ventas base + ventas financiadas</small></div><b data-leverage="pre-sales-a">$1,500</b><b data-leverage="pre-sales-b">$3,000</b></div>
@@ -441,7 +441,7 @@
     </main>
     <script>window.__diagErrors=[];window.addEventListener('error',event=>window.__diagErrors.push(`${event.message} · ${event.filename}:${event.lineno}`));</script>
     <script src="debt-math.js?v=1"></script>
-    <script src="debt-simulator.js?v=5"></script>
+    <script src="debt-simulator.js?v=6"></script>
     <script src="deck-v3.js?v=32"></script>
     <script src="diagnostic.js?v=36"></script>
   </body>
