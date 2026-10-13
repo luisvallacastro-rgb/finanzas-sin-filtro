@@ -20,8 +20,8 @@ body {
 }
 
 .deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
-.slide { position: absolute; inset: 0; visibility: hidden; opacity: 0; transform: translateX(3%); transition: opacity .42s ease, transform .42s ease, visibility .42s; }
-.slide.is-active { visibility: visible; opacity: 1; transform: translateX(0); }
+.slide { position: absolute; inset: 0; visibility: hidden; opacity: 0; pointer-events:none; transform: translateX(3%); transition: opacity .42s ease, transform .42s ease, visibility .42s; }
+.slide.is-active { visibility: visible; opacity: 1; pointer-events:auto; transform: translateX(0); }
 
 .cover {
   position: relative;

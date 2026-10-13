@@ -6,9 +6,14 @@ let current = Math.max(0, Math.min(slides.length - 1, Number(location.hash.repla
 
 function showSlide(index) {
   current = Math.max(0, Math.min(slides.length - 1, index));
-  slides.forEach(slide => slide.classList.remove('is-active'));
+  if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+  slides.forEach((slide, slideIndex) => {
+    const isCurrent = slideIndex === current;
+    slide.classList.toggle('is-active', isCurrent);
+    slide.toggleAttribute('inert', !isCurrent);
+    slide.setAttribute('aria-hidden', String(!isCurrent));
+  });
   void slides[current].offsetWidth;
-  slides[current].classList.add('is-active');
   history.replaceState(null, '', `#${current + 1}`);
   previousButton.disabled = current === 0;
   nextButton.disabled = current === slides.length - 1;
