@@ -593,6 +593,16 @@ body {
   position:absolute; z-index:1; top:50%; right:4.2vw; width:min(43vw,760px); aspect-ratio:1.22;
   transform:translateY(-50%); opacity:0; pointer-events:none;
 }
+.debt-opening::before { background:radial-gradient(circle at 72% 50%,rgba(242,198,109,.09),transparent 36%),radial-gradient(circle at 58% 56%,rgba(113,228,234,.08),transparent 48%); }
+.debt-visual { right:-1vw; width:min(47vw,760px); opacity:.56; }
+.debt-visual svg { width:100%; overflow:visible; fill:none; }
+.debt-orbit { stroke:rgba(113,228,234,.23); stroke-width:2; }
+.debt-orbit-inner { stroke-dasharray:8 13; stroke:rgba(242,198,109,.22); }
+.debt-axis,.debt-scale { stroke:rgba(113,228,234,.58); stroke-width:5; stroke-linecap:round; stroke-linejoin:round; }
+.debt-scale { fill:rgba(113,228,234,.055); }
+.debt-arrow { stroke:#f2c66d; stroke-width:7; stroke-linecap:round; stroke-linejoin:round; filter:drop-shadow(0 0 12px rgba(242,198,109,.3)); }
+.debt-opening h2 { font-size:clamp(4.4rem,8.4vw,10rem); }
+.debt-opening h2 strong { color:#f2c66d; text-shadow:0 0 55px rgba(242,198,109,.15); }
 .finance-chart { position:absolute; z-index:2; inset:0; width:100%; height:100%; overflow:visible; }
 .chart-grid path { fill:none; stroke:rgba(113,228,234,.055); stroke-width:1; }
 .chart-bars rect { fill:rgba(113,228,234,.105); stroke:rgba(113,228,234,.46); stroke-width:1.5; transform-box:fill-box; transform-origin:center bottom; scale:1 0; }
@@ -659,6 +669,8 @@ body {
   .reality-meta { left:30px; right:30px; }
   .reality-copy p { font-size:1rem; }
   .reality-visual { right:-31vw; width:76vw; opacity:.32; }
+  .debt-opening h2 { font-size:clamp(3.65rem,15.7vw,6.5rem); line-height:.8; }
+  .debt-visual { right:-38vw; top:31%; width:92vw; opacity:.28; }
 }
 
 @media(prefers-reduced-motion:reduce) {
