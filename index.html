@@ -251,7 +251,7 @@
         </header>
 
         <div class="diagnostic-shell" id="diagnostic-root">
-          <input class="diagnostic-native-toggle" id="start-test-toggle" type="checkbox" aria-hidden="true" checked />
+          <input class="diagnostic-native-toggle" id="start-test-toggle" type="checkbox" aria-hidden="true" />
           <input class="diagnostic-native-stage" id="native-step-1" name="native-stage" type="radio" checked />
           <input class="diagnostic-native-stage" id="native-step-2" name="native-stage" type="radio" />
           <input class="diagnostic-native-stage" id="native-step-3" name="native-stage" type="radio" />
@@ -263,7 +263,7 @@
               <span class="diagnostic-eyebrow">Tu Radiografía Financiera</span>
               <h2>¿Conoces tu verdadera<br /><strong>realidad financiera?</strong></h2>
               <p>En menos de cinco minutos descubre cuánto controlas, qué parte de tu ingreso está comprometida y cuántos días podrías sostenerte sin ingresos.</p>
-              <label id="start-diagnostic" class="diagnostic-primary diagnostic-start" for="start-test-toggle" role="button" tabindex="0" data-action="start"><span class="start-icon">▶</span> Iniciar prueba financiera</label>
+              <button id="start-diagnostic" class="diagnostic-primary diagnostic-start" type="button" data-action="start" onclick="const root=this.closest('#diagnostic-root');root.querySelector('#start-test-toggle').checked=true;root.querySelectorAll('.diagnostic-view').forEach(view=>view.classList.toggle('is-current',view.dataset.view==='form'));root.querySelectorAll('.diagnostic-step').forEach(panel=>panel.classList.toggle('is-current',panel.dataset.step==='1'));document.querySelector('#diagnostic-progress-bar').style.width='18%';document.querySelector('#diagnostic-progress-label').textContent='Etapa 1 de 5';"><span class="start-icon">▶</span> Iniciar prueba financiera</button>
               <div class="start-guidance"><strong>COMIENZA AQUÍ</strong><span>Usa la barra inferior únicamente para navegar.</span></div>
               <small>Sin registro · Datos procesados únicamente en tu navegador</small>
             </div>
@@ -357,7 +357,7 @@
     </main>
     <script>window.__diagErrors=[];window.addEventListener('error',event=>window.__diagErrors.push(`${event.message} · ${event.filename}:${event.lineno}`));</script>
     <script src="deck-v3.js?v=32"></script>
-    <script src="diagnostic.js?v=33"></script>
+    <script src="diagnostic.js?v=34"></script>
     <script>
       (() => {
         if (window.__financialDiagnosticReady) return;
