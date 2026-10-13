@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#02090b" />
     <title>Finanzas Sin Filtro | Mtro. Luis Valladares</title>
-    <link rel="stylesheet" href="styles.css?v=47" />
+    <link rel="stylesheet" href="styles.css?v=48" />
   </head>
   <body>
     <main class="deck" aria-live="polite">
@@ -329,14 +329,36 @@
             <div class="native-results-note"><strong>Prueba completada</strong><span>Abre esta página en Safari, Chrome o Firefox para obtener el cálculo automático y las recomendaciones personalizadas.</span><label for="native-step-1">Revisar respuestas</label></div>
             <div class="results-heading"><div><span class="diagnostic-eyebrow">Resultado de tu radiografía financiera</span><h2 id="result-status">Solvencia moderada</h2></div><div class="health-score"><strong id="health-score">—</strong><span>/ 100</span><small>Indicador de solvencia</small></div></div>
             <div class="result-metrics">
-              <article><span>Ingreso mensual</span><strong id="metric-income">—</strong></article><article><span>Excedente / déficit</span><strong id="metric-surplus">—</strong></article><article><span>Carga de deuda</span><strong id="metric-debt">—</strong></article>
-              <article><span>Ingreso comprometido</span><strong id="metric-commitment">—</strong></article><article><span>Resistencia</span><strong id="metric-resistance">—</strong></article><article><span>Patrimonio neto</span><strong id="metric-networth">—</strong></article>
+              <article><span>Ingreso mensual</span><strong id="metric-income">—</strong><small>Base del diagnóstico</small><p id="income-reading">—</p></article>
+              <article><span>Excedente / déficit</span><strong id="metric-surplus">—</strong><small id="metric-surplus-rate">—</small><p id="surplus-reading">—</p></article>
+              <article><span>Solvencia financiera</span><strong id="metric-liquid-solvency">—</strong><small id="metric-liquid-solvency-value">—</small><p id="liquid-solvency-reading">—</p></article>
+              <article><span>Solvencia total</span><strong id="metric-total-solvency">—</strong><small id="metric-total-solvency-value">—</small><p id="total-solvency-reading">—</p></article>
+              <article><span>Carga de deuda</span><strong id="metric-debt">—</strong><small id="metric-debt-value">—</small><p id="debt-metric-reading">—</p></article>
+              <article><span>Patrimonio neto</span><strong id="metric-networth">—</strong><small>Activos menos obligaciones</small><p id="networth-reading">—</p></article>
+            </div>
+            <div class="breakdown-grid">
+              <article><span>Gastos necesarios</span><strong id="metric-essential-rate">—</strong><b id="metric-essential-value">—</b><p id="essential-reading">—</p></article>
+              <article><span>Ocio y discrecionales</span><strong id="metric-leisure-rate">—</strong><b id="metric-leisure-value">—</b><p id="leisure-reading">—</p></article>
+              <article><span>Deudas mensuales</span><strong id="metric-debt-rate">—</strong><b id="metric-debt-absolute">—</b><p id="debt-reading">—</p></article>
+              <article class="saving-opportunity"><span>Oportunidad de ahorro</span><strong id="metric-saving-rate">—</strong><b id="metric-saving-value">—</b><p id="saving-reading">—</p></article>
             </div>
             <div class="results-lower">
               <div class="distribution"><span>Distribución mensual</span><div class="distribution-bar"><i id="bar-essential"></i><i id="bar-debt"></i><i id="bar-discretionary"></i><i id="bar-free"></i></div><small>Esenciales · Deudas · Discrecional · Disponible</small></div>
-              <div class="result-message"><span>Lectura principal</span><p id="result-message">—</p></div>
+              <div class="result-message"><span>Lectura de solvencia</span><p id="result-message">—</p><p id="result-secondary-message">—</p></div>
               <div class="simulator"><span>¿Qué pasaría si…?</span><label>Reduces gastos discrecionales <input id="simulation-reduction" type="range" min="0" max="100" value="0" /><b id="simulation-label">$0</b></label><p id="simulation-result">Mueve el control para proyectar un cambio.</p></div>
             </div>
+            <details class="calculation-details" open>
+              <summary>Cómo se calcularon tus indicadores</summary>
+              <div class="formula-grid">
+                <article><span>Ingreso mensual normalizado</span><p id="formula-income">—</p></article>
+                <article><span>Gastos necesarios</span><p id="formula-essential">—</p></article>
+                <article><span>Ocio y discrecionales</span><p id="formula-leisure">—</p></article>
+                <article><span>Carga mensual de deuda</span><p id="formula-debt">—</p></article>
+                <article><span>Solvencia financiera</span><p id="formula-liquid">—</p></article>
+                <article><span>Solvencia total</span><p id="formula-total">—</p></article>
+                <article><span>Recomendación de ahorro</span><p id="formula-saving">—</p></article>
+              </div>
+            </details>
             <div class="result-actions"><button type="button" class="diagnostic-secondary" data-action="reset">Borrar mis datos</button><button type="button" class="diagnostic-secondary" data-action="print">Descargar / imprimir PDF</button><button type="button" class="diagnostic-primary" data-action="plan">Construir mi plan financiero</button></div>
           </section>
         </div>
@@ -357,6 +379,6 @@
     </main>
     <script>window.__diagErrors=[];window.addEventListener('error',event=>window.__diagErrors.push(`${event.message} · ${event.filename}:${event.lineno}`));</script>
     <script src="deck-v3.js?v=32"></script>
-    <script src="diagnostic.js?v=35"></script>
+    <script src="diagnostic.js?v=36"></script>
   </body>
 </html>
