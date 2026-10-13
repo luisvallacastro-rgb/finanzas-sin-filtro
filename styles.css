@@ -696,6 +696,11 @@ body {
 @keyframes finance-reveal { from{opacity:0;transform:translate(70px,-50%) scale(.92);filter:blur(14px)} to{opacity:1;transform:translate(0,-50%) scale(1);filter:blur(0)} }
 @keyframes bar-grow { to{scale:1 1} }
 
+.investment-analysis-slide { padding-top:34px; }.analysis-title { grid-template-columns:minmax(0,1fr) minmax(300px,.6fr); margin-top:18px!important; }.analysis-title h2 { font-size:clamp(2rem,2.85vw,3.3rem)!important; }.investment-analysis { display:grid; grid-template-columns:minmax(520px,.86fr) minmax(520px,1.14fr); gap:16px; margin-top:15px; }.investment-analysis-data { display:grid; grid-template-columns:1.08fr .92fr; gap:10px; align-content:start; }.compact-matrix { grid-column:1/-1; margin-top:0; }.compact-matrix .cashflow-row { min-height:34px; }.compact-matrix .cashflow-row>* { padding:6px 10px; font-size:.57rem; }.compact-matrix .cashflow-label { font-size:.52rem; }
+.van-summary { border:1px solid rgba(113,228,234,.17); background:rgba(3,17,20,.86); }.van-summary>div { display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center; min-height:34px; padding:5px 11px; border-bottom:1px solid rgba(113,228,234,.09); }.van-summary>div:last-child { border-bottom:0; }.van-summary span { color:#9fb1b3; font-size:.59rem; text-transform:uppercase; }.van-summary strong { color:#eef5f5; font-size:.72rem; }.van-summary .good { color:#75d6a1; }.van-summary .bad { color:#e49a87; }
+.van-rate-table { border:1px solid rgba(113,228,234,.17); background:rgba(3,17,20,.86); }.van-rate-table header,.van-rate-table>div { display:grid; grid-template-columns:.72fr 1fr; min-height:25px; border-bottom:1px solid rgba(113,228,234,.08); }.van-rate-table header { background:rgba(113,228,234,.06); }.van-rate-table header>*,.van-rate-table>div>* { display:flex; align-items:center; justify-content:flex-end; padding:4px 9px; color:#dce8e8; font-size:.56rem; }.van-rate-table header>* { color:#789396; font-size:.48rem; letter-spacing:.1em; text-transform:uppercase; }.van-rate-table>div:last-child { border-bottom:0; }.van-rate-table .required>* { color:#f4cb7e; font-weight:900; }.van-rate-table .irr>* { color:#75d6a1; font-weight:900; }
+.van-chart-panel { padding:13px 16px; border:1px solid rgba(113,228,234,.17); background:rgba(3,17,20,.86); }.van-chart-panel header strong { color:#edf5f5; font-size:.75rem; }.van-chart-panel header small { display:block; margin-top:3px; color:#789093; font-size:.55rem; }.van-chart-panel svg { display:block; width:100%; height:auto; max-height:310px; margin-top:4px; }.van-decision { display:grid; grid-template-columns:auto 1fr; gap:3px 14px; padding:10px 13px; border-left:4px solid #75d6a1; background:rgba(117,214,161,.06); }.van-decision span { grid-row:1/3; align-self:center; color:#75d6a1; font-size:.51rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }.van-decision strong { color:#eaf4f4; font-size:.68rem; }.van-decision p { margin:0; color:#92a6a8; font-size:.56rem; }.van-decision.is-bad { border-left-color:#e49a87; background:rgba(228,154,135,.06); }.van-decision.is-bad span { color:#e49a87; }.investment-analysis-slide .formula-note { margin-top:11px; padding:11px 15px; }.investment-analysis-slide .slide-footer { margin-top:12px; }
+
 @media(max-width:700px) {
   .reality-copy { left:30px; width:calc(100vw - 60px); }
   .reality h2 { font-size:clamp(4rem,17vw,7rem); line-height:.79; }
@@ -1293,6 +1298,13 @@ body {
   .investment-final-principles { grid-template-columns:1fr; gap:11px; margin-top:30px; }
   .investment-final-principles article { padding:16px 18px; }
   .investment-final-line { font-size:.79rem; line-height:1.45; }
+  .investment-analysis-slide { padding-top:82px; }
+  .analysis-title { display:block; }
+  .analysis-title h2 { font-size:clamp(2.25rem,11vw,3.65rem)!important; }
+  .investment-analysis { grid-template-columns:1fr; }
+  .investment-analysis-data { grid-template-columns:1fr; }
+  .compact-matrix { grid-column:1; }
+  .van-chart-panel svg { max-height:none; }
 }
 
 @media(max-width:520px) {
