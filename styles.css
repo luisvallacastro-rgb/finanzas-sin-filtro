@@ -500,6 +500,13 @@ body {
     scrollbar-gutter:stable;
     touch-action:pan-y;
   }
+  /* La agenda es informativa: el gesto debe llegar siempre al lienzo que
+     desplaza, incluso cuando comienza encima de una tarjeta o del texto. */
+  .strategy > * {
+    pointer-events:none;
+    user-select:none;
+    -webkit-user-select:none;
+  }
   .strategy * { touch-action:pan-y; }
   .strategy::-webkit-scrollbar { display:block; width:9px; }
   .strategy::-webkit-scrollbar-track { background:rgba(113,228,234,.07); }
