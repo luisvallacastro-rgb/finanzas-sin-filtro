@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#02090b" />
     <title>Finanzas Sin Filtro | Mtro. Luis Valladares</title>
-    <link rel="stylesheet" href="styles.css?v=45" />
+    <link rel="stylesheet" href="styles.css?v=47" />
   </head>
   <body>
     <main class="deck" aria-live="polite">
@@ -263,7 +263,7 @@
               <span class="diagnostic-eyebrow">Tu Radiografía Financiera</span>
               <h2>¿Conoces tu verdadera<br /><strong>realidad financiera?</strong></h2>
               <p>En menos de cinco minutos descubre cuánto controlas, qué parte de tu ingreso está comprometida y cuántos días podrías sostenerte sin ingresos.</p>
-              <button id="start-diagnostic" class="diagnostic-primary diagnostic-start" type="button" data-action="start" onclick="const root=this.closest('#diagnostic-root');root.querySelector('#start-test-toggle').checked=true;root.querySelectorAll('.diagnostic-view').forEach(view=>view.classList.toggle('is-current',view.dataset.view==='form'));root.querySelectorAll('.diagnostic-step').forEach(panel=>panel.classList.toggle('is-current',panel.dataset.step==='1'));document.querySelector('#diagnostic-progress-bar').style.width='18%';document.querySelector('#diagnostic-progress-label').textContent='Etapa 1 de 5';"><span class="start-icon">▶</span> Iniciar prueba financiera</button>
+              <button id="start-diagnostic" class="diagnostic-primary diagnostic-start" type="button"><span class="start-icon">▶</span> Iniciar prueba financiera</button>
               <div class="start-guidance"><strong>COMIENZA AQUÍ</strong><span>Usa la barra inferior únicamente para navegar.</span></div>
               <small>Sin registro · Datos procesados únicamente en tu navegador</small>
             </div>
@@ -357,80 +357,6 @@
     </main>
     <script>window.__diagErrors=[];window.addEventListener('error',event=>window.__diagErrors.push(`${event.message} · ${event.filename}:${event.lineno}`));</script>
     <script src="deck-v3.js?v=32"></script>
-    <script src="diagnostic.js?v=34"></script>
-    <script>
-      (() => {
-        if (window.__financialDiagnosticReady) return;
-        const root = document.querySelector('#diagnostic-root');
-        const form = document.querySelector('#diagnostic-form');
-        if (!root || !form) return;
-        const views = [...root.querySelectorAll('.diagnostic-view')];
-        const steps = [...root.querySelectorAll('.diagnostic-step')];
-        const progress = document.querySelector('#diagnostic-progress-bar');
-        const progressLabel = document.querySelector('#diagnostic-progress-label');
-        const back = root.querySelector('[data-action="back"]');
-        const next = root.querySelector('[data-action="next"]');
-        const money = new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2});
-        let step = 1;
-        const n = name => Math.max(0,Number(new FormData(form).get(name))||0);
-        const showView = name => { views.forEach(view => view.classList.toggle('is-current',view.dataset.view===name)); root.classList.toggle('showing-results',name==='results'); const toggle=document.querySelector('#start-test-toggle'); if(toggle) toggle.checked=name==='form'; };
-        const showStep = value => {
-          step = Math.max(1,Math.min(steps.length,value));
-          steps.forEach(panel => panel.classList.toggle('is-current',Number(panel.dataset.step)===step));
-          const nativeStage=document.querySelector(`#native-step-${step}`); if(nativeStage) nativeStage.checked=true;
-          back.style.visibility = step===1?'hidden':'visible';
-          next.textContent = step===steps.length?'Ver mi radiografía →':'Continuar →';
-          progress.style.width = `${step*18}%`;
-          progressLabel.textContent = `Etapa ${step} de ${steps.length}`;
-          const app=document.querySelector('.diagnostic-app'); if(app) app.scrollTop=0;
-        };
-        const render = () => {
-          const frequency = new FormData(form).get('frequency');
-          const factor = {monthly:1,biweekly:2,weekly:52/12,variable:1}[frequency]||1;
-          const income = (n('income')+n('extraIncome'))*factor;
-          const essential = ['housing','food','transport','utilities','educationHealth','otherEssential'].reduce((sum,key)=>sum+n(key),0);
-          const discretionary = n('leisure')+n('personal');
-          const debt = ['personalDebt','cardDebt','securedDebt','otherDebt'].reduce((sum,key)=>sum+n(key),0);
-          const expense = essential+discretionary+debt;
-          const surplus = income-expense;
-          const debtRatio = income?debt/income*100:0;
-          const commitment = income?expense/income*100:0;
-          const liquid = n('liquid')+n('emergency');
-          const resistance = essential+debt?liquid/((essential+debt)/30):0;
-          const netWorth = liquid+n('assets')-n('debtBalance')-n('otherLiabilities');
-          const score = Math.round(Math.max(0,Math.min(100,50+(income?surplus/income*100:0)-debtRatio/2+Math.min(resistance,90)/3)));
-          const status = score<40?'Solvencia crítica':score<60?'Solvencia baja':score<80?'Solvencia moderada':'Solvencia sólida';
-          document.querySelector('#health-score').textContent=score;
-          document.querySelector('#result-status').textContent=status;
-          document.querySelector('#metric-income').textContent=money.format(income);
-          document.querySelector('#metric-surplus').textContent=money.format(surplus);
-          document.querySelector('#metric-debt').textContent=`${debtRatio.toFixed(1)}%`;
-          document.querySelector('#metric-commitment').textContent=`${commitment.toFixed(1)}%`;
-          document.querySelector('#metric-resistance').textContent=`${resistance.toFixed(1)} días`;
-          document.querySelector('#metric-networth').textContent=money.format(netWorth);
-          document.querySelector('#result-message').textContent=surplus<0?`Tus gastos superan tus ingresos por ${money.format(Math.abs(surplus))}.`:`Tu margen disponible es ${income?(surplus/income*100).toFixed(1):'0.0'}%.`;
-          progress.style.width='100%'; progressLabel.textContent='Resultado'; showView('results');
-        };
-        root.querySelector('#start-diagnostic').addEventListener('click',()=>{showView('form');showStep(1)});
-        form.addEventListener('submit',event=>{
-          event.preventDefault();
-          const required=[...steps[step-1].querySelectorAll('[required]')];
-          const invalid=required.find(field=>!field.value);
-          if(invalid){invalid.focus();return;}
-          if(step<steps.length) showStep(step+1); else render();
-        });
-        next.addEventListener('click',event=>{
-          event.preventDefault();
-          const required=[...steps[step-1].querySelectorAll('[required]')];
-          const invalid=required.find(field=>!field.value);
-          if(invalid){invalid.focus();return;}
-          if(step<steps.length) showStep(step+1); else render();
-        });
-        back.addEventListener('click',()=>showStep(step-1));
-        root.querySelector('[data-action="reset"]').addEventListener('click',()=>{form.reset();showView('welcome');progress.style.width='0';progressLabel.textContent='Inicio';document.querySelector('#start-test-toggle').checked=false;showStep(1)});
-        root.querySelector('[data-action="print"]').addEventListener('click',()=>window.print());
-        showStep(1);
-      })();
-    </script>
+    <script src="diagnostic.js?v=35"></script>
   </body>
 </html>

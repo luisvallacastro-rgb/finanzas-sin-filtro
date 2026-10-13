@@ -152,9 +152,14 @@
   }
 
   function startDiagnostic(event) {
+    event?.preventDefault();
     event?.stopPropagation();
     showView('form');
     showStep(1);
+    requestAnimationFrame(() => {
+      const firstField = form.querySelector('[name="income"]');
+      firstField?.focus({ preventScroll: true });
+    });
   }
 
   startButton?.addEventListener('keydown', event => {
@@ -172,11 +177,6 @@
       event.stopPropagation();
       handleAction(button);
     });
-  });
-
-  root.addEventListener('click', event => {
-    const trigger = event.target.closest('#start-diagnostic');
-    if (trigger) startDiagnostic(event);
   });
 
   form.addEventListener('submit', event => {
