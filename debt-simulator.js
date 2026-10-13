@@ -26,7 +26,20 @@
     slide.classList.toggle('is-bad', result.roa < result.debtRate);
     setText(slide.querySelector(`[data-scenario-label="${name}"]`), `ROA ${percent(result.roa)} · costo de deuda ${percent(result.debtRate)}`);
 
-    if (cards.length === 2) {
+    const comparison = slide.querySelector('.finance-comparison');
+    if (comparison) {
+      const output = key => comparison.querySelector(`[data-compare="${key}"]`);
+      setText(output('assets-a'), money(result.assets)); setText(output('assets-b'), money(result.assets));
+      setText(output('equity-a'), money(result.equityUnleveraged)); setText(output('equity-b'), money(result.equityLeveraged));
+      setText(output('debt'), money(result.debt));
+      setText(output('leverage'), `${(result.debt / result.equityLeveraged).toFixed(2)}×`);
+      setText(output('operating-a'), money(result.operatingResult)); setText(output('operating-b'), money(result.operatingResult));
+      setText(output('interest'), money(-result.interest));
+      setText(output('profit-a'), money(result.unleveragedResult)); setText(output('profit-b'), money(result.leveragedResult));
+      setText(output('roe-a'), percent(result.roeUnleveraged)); setText(output('roe-b'), percent(result.roeLeveraged));
+      setText(output('delta'), `${pp(result.delta)} de ROE`);
+      setText(output('explanation'), `El mismo activo produce ${money(result.operatingResult)}. Después de ${money(result.interest)} de intereses, ${money(result.leveragedResult)} corresponden a un capital de ${money(result.equityLeveraged)}.`);
+    } else if (cards.length === 2) {
       setText(cards[0].querySelector('.roe-number'), percent(result.roeUnleveraged));
       setText(cards[1].querySelector('.roe-number'), percent(result.roeLeveraged));
       const left = cards[0].querySelectorAll('li b');
