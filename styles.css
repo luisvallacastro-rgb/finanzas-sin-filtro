@@ -1106,4 +1106,47 @@ body {
   .manifesto-copy { top:39%; }
 }
 
+/* Bloque 3: apalancamiento financiero */
+.debt-case { padding:clamp(34px,4.2vw,74px) clamp(38px,5vw,92px) 78px; overflow:hidden; background:radial-gradient(circle at 80% 28%,rgba(36,54,83,.52),transparent 38%),linear-gradient(rgba(113,228,234,.024) 1px,transparent 1px),linear-gradient(90deg,rgba(113,228,234,.024) 1px,transparent 1px),#02090b; background-size:auto,5vw 5vw,5vw 5vw,auto; }
+.debt-case::before { content:""; position:absolute; z-index:0; right:-18vw; bottom:-42vw; width:76vw; aspect-ratio:1; border:1px solid rgba(113,228,234,.07); border-radius:50%; box-shadow:0 0 0 9vw rgba(113,228,234,.015),0 0 0 20vw rgba(113,228,234,.01); pointer-events:none; }
+.debt-case>* { position:relative; z-index:1; }
+.debt-meta { display:flex; justify-content:space-between; color:#71898c; font-size:.66rem; font-weight:900; letter-spacing:.18em; text-transform:uppercase; }
+.debt-meta span,.debt-title .section-label { color:var(--cyan); }
+.debt-title { margin-top:clamp(30px,5vh,58px); }
+.debt-title .section-label { display:block; margin-bottom:12px; font-size:.68rem; font-weight:900; letter-spacing:.2em; text-transform:uppercase; }
+.debt-title h2 { margin:0; color:#eef6f6; font-size:clamp(2.5rem,4.6vw,5.4rem); line-height:.93; letter-spacing:-.055em; font-weight:620; }
+.debt-title h2 strong { color:#f4cb7e; font:inherit; }
+.capital-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:30px; }
+.capital-grid article { padding:20px 24px; border:1px solid rgba(113,228,234,.17); background:linear-gradient(135deg,rgba(8,31,36,.92),rgba(5,18,22,.72)); }
+.case-label { display:flex; justify-content:space-between; color:#799194; font-size:.62rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }.case-label b { color:var(--cyan); }
+.asset-total { display:block; margin-top:15px; color:#eef6f6; font-size:clamp(2rem,3vw,3.8rem); letter-spacing:-.055em; }.capital-grid article>small { color:#789093; }
+.capital-bar { display:flex; height:28px; margin:18px 0 12px; overflow:hidden; border:1px solid rgba(113,228,234,.18); border-radius:3px; background:#07161a; }.capital-bar i { display:block; height:100%; }.capital-bar .equity { background:var(--cyan); }.capital-bar .debt { background:#f4cb7e; }.capital-bar .full { width:100%; }.capital-bar .half { width:50%; }
+.capital-legend { display:flex; justify-content:space-between; color:#7e9699; font-size:.62rem; }.capital-legend b { display:block; margin-top:3px; color:#dfeaea; }
+.ratio { display:flex; justify-content:space-between; align-items:end; margin-top:16px; padding-top:14px; border-top:1px solid rgba(113,228,234,.12); color:#789093; font-size:.64rem; text-transform:uppercase; letter-spacing:.08em; }.ratio strong { color:#f4cb7e; font-size:1.5rem; }
+.debt-takeaway { display:grid; grid-template-columns:auto 1fr auto; gap:18px; align-items:center; margin-top:17px; padding:15px 20px; border-left:3px solid #f4cb7e; background:rgba(244,203,126,.055); }.debt-takeaway span { color:#f4cb7e; font-size:.58rem; font-weight:900; letter-spacing:.14em; text-transform:uppercase; }.debt-takeaway p { margin:0; color:#aababb; font-size:.72rem; }.debt-takeaway>strong { color:#eaf1f1; font-size:.72rem; }
+.roe-stage { display:grid; grid-template-columns:1fr 130px 1fr; gap:16px; align-items:stretch; margin-top:28px; }.roe-stage article { padding:18px 22px; border:1px solid rgba(113,228,234,.15); background:rgba(5,22,26,.78); }.roe-stage article.highlight { border-color:rgba(244,203,126,.38); box-shadow:0 0 32px rgba(244,203,126,.045); }.roe-stage article>span { color:#789093; font-size:.63rem; font-weight:900; letter-spacing:.15em; text-transform:uppercase; }.roe-number { margin:8px 0 12px; color:#edf6f6; font-size:clamp(3rem,5vw,6rem); line-height:.9; letter-spacing:-.07em; }.positive .highlight .roe-number { color:#75d6a1; }.negative .highlight .roe-number { color:#e49a87; }
+.roe-stage ul { display:grid; grid-template-columns:1fr 1fr; gap:7px 18px; margin:0; padding:0; list-style:none; }.roe-stage li { display:flex; justify-content:space-between; color:#82999c; font-size:.62rem; }.roe-stage li b { color:#d8e4e5; }.roe-stage article>small { display:block; margin-top:13px; color:#678084; font-size:.56rem; }
+.roe-delta { display:flex; flex-direction:column; align-items:center; justify-content:center; border:1px solid rgba(113,228,234,.12); background:rgba(3,13,16,.78); text-align:center; }.roe-delta span,.roe-delta small { color:#6f878a; font-size:.55rem; text-transform:uppercase; letter-spacing:.12em; }.roe-delta strong { margin:8px 0 3px; font-size:1.8rem; }.roe-delta.gain strong { color:#75d6a1; }.roe-delta.loss strong { color:#e49a87; }
+.spread-line { display:grid; grid-template-columns:auto 1fr auto auto; gap:14px; align-items:center; margin-top:15px; color:#82999c; font-size:.62rem; }.spread-line i { height:2px; background:linear-gradient(90deg,#75d6a1,rgba(117,214,161,.12)); }.spread-line span b { color:#e8f0f0; }.spread-line>strong { padding:8px 12px; color:#75d6a1; border:1px solid rgba(117,214,161,.26); }.spread-line.adverse i { background:linear-gradient(90deg,#e49a87,rgba(228,154,135,.12)); }.spread-line.adverse>strong { color:#e49a87; border-color:rgba(228,154,135,.28); }
+.debt-conclusion { margin-top:15px; color:#9eb0b2; font-size:clamp(.8rem,1.05vw,1.05rem); }.debt-conclusion strong { color:#edf5f5; }
+.loss-visual { display:grid; grid-template-columns:1fr 1fr .8fr; gap:18px; align-items:end; margin-top:30px; }.loss-visual article,.damage-callout { min-height:270px; padding:19px 22px; border:1px solid rgba(228,154,135,.2); background:rgba(20,15,18,.58); }.loss-visual article>span,.damage-callout span { color:#a6807a; font-size:.62rem; font-weight:900; letter-spacing:.15em; text-transform:uppercase; }.negative-bar { display:flex; align-items:flex-end; justify-content:center; margin:16px 0; background:linear-gradient(180deg,rgba(228,154,135,.24),rgba(228,154,135,.05)); border-top:2px solid #e49a87; }.negative-bar.mild { height:52px; }.negative-bar.severe { height:130px; }.negative-bar b { padding-bottom:8px; color:#f0b19f; font-size:clamp(2rem,3.2vw,3.8rem); }.loss-visual p { display:flex; justify-content:space-between; margin:7px 0; color:#82979a; font-size:.62rem; }.loss-visual p strong { color:#dce7e8; }.damage-callout { display:flex; flex-direction:column; justify-content:center; }.damage-callout>strong { margin:9px 0; color:#e49a87; font-size:clamp(2.5rem,4.3vw,5rem); }.damage-callout p { display:block; line-height:1.5; }
+.indicator-panel { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:25px; }.indicator-panel article { padding:15px 17px; border:1px solid rgba(113,228,234,.15); background:rgba(5,22,26,.75); }.indicator-panel b { color:var(--cyan); font-size:.62rem; }.indicator-panel span { display:block; margin:10px 0 7px; color:#e9f1f1; font-size:.78rem; font-weight:800; }.indicator-panel p { margin:0; color:#789093; font-size:.6rem; line-height:1.4; }
+.scenario-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:13px; }.scenario-strip article { display:grid; grid-template-columns:1fr auto; gap:6px 12px; padding:14px 17px; border:1px solid rgba(113,228,234,.13); background:rgba(5,19,23,.78); }.scenario-strip span { grid-column:1/3; font-size:.57rem; font-weight:900; letter-spacing:.15em; text-transform:uppercase; }.scenario-strip b,.scenario-strip i { color:#8ba0a2; font-size:.65rem; font-style:normal; }.scenario-strip strong { grid-column:1/3; font-size:1.4rem; }.scenario-strip .good span,.scenario-strip .good strong { color:#75d6a1; }.scenario-strip .warning span,.scenario-strip .warning strong { color:#f4cb7e; }.scenario-strip .bad span,.scenario-strip .bad strong { color:#e49a87; }
+.decision-panel blockquote { margin:14px 0 0; padding:13px 18px; color:#91a5a7; border-left:3px solid #f4cb7e; background:rgba(244,203,126,.045); font-size:clamp(.78rem,1.05vw,1.05rem); text-transform:uppercase; letter-spacing:.045em; }.decision-panel blockquote strong { color:#edf4f4; }
+
+@media(max-width:700px) {
+  .debt-case { padding:82px 22px 140px; overflow-y:auto; }
+  .debt-meta { position:relative; font-size:.54rem; }
+  .debt-title { margin-top:30px; }
+  .debt-title h2 { font-size:clamp(2.55rem,12.5vw,4.2rem); }
+  .capital-grid,.roe-stage,.loss-visual,.indicator-panel,.scenario-strip { grid-template-columns:1fr; }
+  .roe-delta { min-height:100px; }
+  .roe-stage ul { grid-template-columns:1fr; }
+  .spread-line { grid-template-columns:1fr 1fr; }.spread-line i { display:none; }.spread-line>strong { grid-column:1/3; text-align:center; }
+  .debt-takeaway { grid-template-columns:1fr; gap:7px; }
+  .loss-visual article,.damage-callout { min-height:0; }
+  .negative-bar.severe { height:100px; }
+  .debt-case .slide-footer { display:flex; }
+}
+
 @media print { body{overflow:visible;background:#fff}.slide{display:none!important}.diagnostic-app{display:block!important;position:static!important;width:auto;height:auto;background:#fff;color:#111;padding:20px}.diagnostic-app-header,.deck-controls,.diagnostic-welcome,.diagnostic-form,.result-actions,.simulator,.diagnostic-app .slide-footer{display:none!important}.diagnostic-results{position:static!important;opacity:1!important;visibility:visible!important;transform:none!important;color:#111}.results-heading h2,.result-metrics strong{color:#111}.result-metrics article,.results-lower>div{background:#fff;border-color:#bbb}.result-message p{color:#222} }
