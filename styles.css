@@ -133,10 +133,44 @@ body {
   text-transform: uppercase;
 }
 
+.cover-team {
+  width:min(92vw,760px);
+  margin:clamp(30px,4vh,44px) auto 0;
+  padding-top:clamp(20px,2.6vh,30px);
+  border-top:1px solid rgba(113,228,234,.16);
+}
+.cover-team>span {
+  display:block;
+  margin-bottom:14px;
+  color:#7f989b;
+  font-size:.62rem;
+  font-weight:900;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+}
+.cover-team ul {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px 30px;
+  margin:0;
+  padding:0;
+  color:#a9babb;
+  list-style:none;
+  font-size:clamp(.72rem,.88vw,.9rem);
+  line-height:1.25;
+}
+.cover-team li:last-child { grid-column:1/-1; }
+
 @media (max-width: 680px) {
   .cover h1 { font-size: clamp(4.2rem, 21vw, 7rem); line-height: .84; }
-  .rule { margin-top: 44px; }
+  .rule { margin-top: 34px; }
   .cover::before { width: 120vw; }
+  .title-block { transform:translateY(-2vh); }
+  .cover p { font-size:1.2rem; }
+  .cover-team { width:min(84vw,420px); margin-top:24px; padding-top:18px; }
+  .cover-team>span { margin-bottom:11px; font-size:.55rem; }
+  .cover-team ul { grid-template-columns:1fr; gap:5px; font-size:.7rem; }
+  .cover-team li:last-child { grid-column:auto; }
 }
 
 /* Lámina 02: mapa estratégico */
@@ -217,11 +251,12 @@ body {
   background:linear-gradient(90deg,transparent,var(--cyan),transparent); transform:translate(-50%,-50%);
 }
 .cover.is-active .title-block::before { animation: energy-sweep 1.3s .1s cubic-bezier(.16,1,.3,1) both; }
-.cover .title-block h1 span,.cover .title-block h1 strong,.cover .rule,.cover .title-block p { opacity:0; }
+.cover .title-block h1 span,.cover .title-block h1 strong,.cover .rule,.cover .title-block p,.cover .cover-team { opacity:0; }
 .cover.is-active .title-block h1 span { animation:title-drop .9s .12s cubic-bezier(.16,1,.3,1) both; }
 .cover.is-active .title-block h1 strong { animation:title-rise .95s .27s cubic-bezier(.16,1,.3,1) both; }
 .cover.is-active .rule { animation:rule-grow .7s .82s cubic-bezier(.16,1,.3,1) both; }
 .cover.is-active .title-block p { animation:fade-rise .7s 1s ease-out both; }
+.cover.is-active .cover-team { animation:fade-rise .7s 1.15s ease-out both; }
 
 /* Lámina 02: recorrido vertical */
 .strategy { padding:clamp(30px,3.8vh,52px) clamp(44px,5vw,88px) 34px; }
@@ -315,7 +350,7 @@ body {
 
 @media(prefers-reduced-motion:reduce) {
   .slide,.cover::before,.glow,.title-block::before,.strategy * { animation:none!important; transition:none!important; }
-  .cover .title-block h1 span,.cover .title-block h1 strong,.cover .rule,.cover .title-block p,
+  .cover .title-block h1 span,.cover .title-block h1 strong,.cover .rule,.cover .title-block p,.cover .cover-team,
   .strategy .strategy-header>div,.strategy .strategy-header>p,.strategy .stage-card,.strategy .strategy-footer { opacity:1; transform:none; filter:none; }
   .journey-line span { height:100%; }
 }
