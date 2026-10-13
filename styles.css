@@ -1061,4 +1061,34 @@ body {
   .diagnostic-app .slide-footer { display:none; }
   body:has(.diagnostic-app.is-active) .deck-controls { bottom:10px; right:50%; transform:translateX(50%); }
 }
+/* Experiencia móvil global de las láminas editoriales.
+   El diagnóstico queda fuera porque contiene controles interactivos. */
+@media(max-width:620px) {
+  .slide:not(.diagnostic-app) {
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    overscroll-behavior-y:contain;
+    -webkit-overflow-scrolling:touch;
+    touch-action:pan-y;
+    scrollbar-width:thin;
+    scrollbar-color:rgba(113,228,234,.52) rgba(113,228,234,.06);
+  }
+  .slide:not(.diagnostic-app) > * {
+    pointer-events:none;
+    user-select:none;
+    -webkit-user-select:none;
+  }
+  .slide:not(.diagnostic-app) * { touch-action:pan-y; }
+  .slide:not(.diagnostic-app)::-webkit-scrollbar { width:6px; }
+  .slide:not(.diagnostic-app)::-webkit-scrollbar-track { background:rgba(113,228,234,.05); }
+  .slide:not(.diagnostic-app)::-webkit-scrollbar-thumb { border-radius:8px; background:rgba(113,228,234,.5); }
+
+  /* Zona segura para el menú flotante y la barra inferior del navegador. */
+  .slide-footer { bottom:94px!important; }
+  .paradox { padding-bottom:170px; }
+  .paradox .versus { padding-bottom:0; }
+  .freedom-path { bottom:142px; }
+  .manifesto-copy { top:39%; }
+}
+
 @media print { body{overflow:visible;background:#fff}.slide{display:none!important}.diagnostic-app{display:block!important;position:static!important;width:auto;height:auto;background:#fff;color:#111;padding:20px}.diagnostic-app-header,.deck-controls,.diagnostic-welcome,.diagnostic-form,.result-actions,.simulator,.diagnostic-app .slide-footer{display:none!important}.diagnostic-results{position:static!important;opacity:1!important;visibility:visible!important;transform:none!important;color:#111}.results-heading h2,.result-metrics strong{color:#111}.result-metrics article,.results-lower>div{background:#fff;border-color:#bbb}.result-message p{color:#222} }
