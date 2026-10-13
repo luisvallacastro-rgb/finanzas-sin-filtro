@@ -41,7 +41,15 @@
 
   function renderMatrix(result) {
     const table = document.querySelector('#cashflow-table');
-    table.innerHTML = `<div class="cashflow-row cashflow-head"><b>Período</b><b>Inversión / flujo</b><b>Factor</b><b>Valor presente</b><b>Acumulado nominal</b><b>Acumulado descontado</b></div>` + result.matrix.map(row => `<div class="cashflow-row"><span>Año ${row.period}</span><b>${plainMoney(row.flow)}</b><span>${row.factor.toFixed(6)}</span><b>${plainMoney(row.presentValue)}</b><span>${plainMoney(row.nominal)}</span><span>${plainMoney(row.discounted)}</span></div>`).join('');
+    const columns = `minmax(190px,1.1fr) repeat(${result.matrix.length},minmax(110px,1fr))`;
+    const row = (label, values, className = '') => `<div class="cashflow-row ${className}" style="grid-template-columns:${columns}"><b class="cashflow-label">${label}</b>${values.map(value => `<span>${value}</span>`).join('')}</div>`;
+    table.style.minWidth = `${Math.max(850, 190 + result.matrix.length * 110)}px`;
+    table.innerHTML = row('Operación', result.matrix.map(item => `<b>Año ${item.period}</b>`), 'cashflow-head')
+      + row('Inversión / flujo', result.matrix.map(item => plainMoney(item.flow)), 'cashflow-primary')
+      + row('Factor de descuento', result.matrix.map(item => item.factor.toFixed(6)))
+      + row('Valor presente', result.matrix.map(item => plainMoney(item.presentValue)), 'cashflow-primary')
+      + row('Acumulado nominal', result.matrix.map(item => plainMoney(item.nominal)))
+      + row('Acumulado descontado', result.matrix.map(item => plainMoney(item.discounted)), 'cashflow-total');
   }
 
   function svgText(x, y, value, anchor = 'middle', color = '#789396', size = 10) { return `<text x="${x}" y="${y}" text-anchor="${anchor}" fill="${color}" font-size="${size}" font-family="Inter,Arial">${value}</text>`; }
