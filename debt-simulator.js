@@ -29,6 +29,8 @@
     const comparison = slide.querySelector('.finance-comparison');
     if (comparison) {
       const output = key => comparison.querySelector(`[data-compare="${key}"]`);
+      const favorable = result.roa > result.debtRate;
+      const neutral = result.roa === result.debtRate;
       setText(output('assets-a'), money(result.assets)); setText(output('assets-b'), money(result.assets));
       setText(output('equity-a'), money(result.equityUnleveraged)); setText(output('equity-b'), money(result.equityLeveraged));
       setText(output('debt'), money(result.debt));
@@ -39,6 +41,15 @@
       setText(output('roe-a'), percent(result.roeUnleveraged)); setText(output('roe-b'), percent(result.roeLeveraged));
       setText(output('delta'), `${pp(result.delta)} de ROE`);
       setText(output('explanation'), `El mismo activo produce ${money(result.operatingResult)}. Después de ${money(result.interest)} de intereses, ${money(result.leveragedResult)} corresponden a un capital de ${money(result.equityLeveraged)}.`);
+      setText(slide.querySelector('.comparison-title h2 strong'), favorable ? 'La deuda mejora el ROE.' : neutral ? 'La deuda no cambia el ROE.' : 'El costo supera al rendimiento.');
+      setText(slide.querySelector('.comparison-title>p'), favorable
+        ? 'La deuda cuesta menos de lo que producen los activos; el excedente favorece al propietario.'
+        : neutral ? 'El rendimiento de los activos apenas cubre el costo de la deuda.'
+        : 'La operación puede ganar dinero, pero la deuda cuesta más de lo que los activos producen.');
+      setText(slide.querySelector('.debt-conclusion'), favorable
+        ? `Lectura: el ROE sube de ${percent(result.roeUnleveraged)} a ${percent(result.roeLeveraged)} porque el ROA supera la tasa de la deuda.`
+        : neutral ? `Lectura: el ROE permanece en ${percent(result.roeLeveraged)} porque el ROA y la tasa de deuda son iguales.`
+        : `Lectura: el ROE baja de ${percent(result.roeUnleveraged)} a ${percent(result.roeLeveraged)} porque los intereses consumen parte de la ganancia.`);
     } else if (cards.length === 2) {
       setText(cards[0].querySelector('.roe-number'), percent(result.roeUnleveraged));
       setText(cards[1].querySelector('.roe-number'), percent(result.roeLeveraged));
