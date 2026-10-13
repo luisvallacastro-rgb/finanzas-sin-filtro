@@ -26,29 +26,23 @@ fullscreenButton.addEventListener('click', async () => {
   else await document.exitFullscreen();
 });
 
-// En móvil el desplazamiento es nativo. En la vista previa de escritorio
-// también permitimos arrastrar la agenda con el mouse para probarla.
-const strategySlide = document.querySelector('.strategy');
-const strategyJourney = document.querySelector('.strategy .journey');
-if (strategySlide && strategyJourney) {
-  let mouseY = null;
-  strategyJourney.addEventListener('pointerdown', event => {
-    if (event.pointerType !== 'mouse' || event.button !== 0) return;
-    mouseY = event.clientY;
-    strategyJourney.setPointerCapture?.(event.pointerId);
-  });
-  strategyJourney.addEventListener('pointermove', event => {
-    if (event.pointerType !== 'mouse' || mouseY === null) return;
-    strategySlide.scrollTop += mouseY - event.clientY;
-    mouseY = event.clientY;
-  });
-  const finishMouseDrag = event => {
-    if (mouseY === null) return;
-    strategyJourney.releasePointerCapture?.(event.pointerId);
-    mouseY = null;
-  };
-  strategyJourney.addEventListener('pointerup', finishMouseDrag);
-  strategyJourney.addEventListener('pointercancel', finishMouseDrag);
-}
+// Safari móvil puede reservar el gesto cuando comienza sobre elementos con
+// composición propia. Aplicamos el desplazamiento directamente a cada lámina
+// editorial para que todo el lienzo funcione como superficie de arrastre.
+document.querySelectorAll('.slide:not(.diagnostic-app)').forEach(slide => {
+  let touchY = null;
+  slide.addEventListener('touchstart', event => {
+    touchY = event.touches[0]?.clientY ?? null;
+  }, { passive: true, capture: true });
+  slide.addEventListener('touchmove', event => {
+    const nextY = event.touches[0]?.clientY;
+    if (touchY === null || nextY === undefined) return;
+    slide.scrollTop += touchY - nextY;
+    touchY = nextY;
+    if (slide.scrollHeight > slide.clientHeight) event.preventDefault();
+  }, { passive: false, capture: true });
+  slide.addEventListener('touchend', () => { touchY = null; }, { capture: true });
+  slide.addEventListener('touchcancel', () => { touchY = null; }, { capture: true });
+});
 
 showSlide(current);
