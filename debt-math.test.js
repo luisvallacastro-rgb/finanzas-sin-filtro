@@ -5,6 +5,11 @@ const close = (actual, expected) => assert.ok(Math.abs(actual - expected) < 1e-1
 assert.equal(cases.capital.unleveraged.assets, cases.capital.unleveraged.liabilities + cases.capital.unleveraged.equity);
 assert.equal(cases.capital.leveraged.assets, cases.capital.leveraged.liabilities + cases.capital.leveraged.equity);
 assert.equal(cases.capital.interest, 600);
+const custom = cases.calculate({ assets: 12000, debt: 3000, debtRate: 0.1, roa: 0.15 });
+assert.equal(custom.equityLeveraged, 9000);
+assert.equal(custom.interest, 300);
+assert.equal(custom.operatingResult, 1800);
+close(custom.roeLeveraged, 1 / 6);
 
 assert.equal(cases.favorable.operatingResult, 2000);
 assert.equal(cases.favorable.roeUnleveraged, 0.20);

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#02090b" />
     <title>Finanzas Sin Filtro | Mtro. Luis Valladares</title>
-    <link rel="stylesheet" href="styles.css?v=50" />
+    <link rel="stylesheet" href="styles.css?v=51" />
   </head>
   <body>
     <main class="deck" aria-live="polite">
@@ -389,9 +389,16 @@
       <section class="slide debt-case capital-choice" data-slide="11" aria-label="Dinero propio o prestado">
         <header class="debt-meta"><span>03 · Las deudas</span><b>Estructura de capital · 01:30</b></header>
         <div class="debt-title"><span class="section-label">Mismos activos. Distinta estructura.</span><h2>¿Es mejor invertir con dinero propio<br />o utilizar <strong>dinero prestado?</strong></h2></div>
+        <form class="debt-lab" id="debt-lab" aria-label="Variables del simulador de deuda">
+          <label><span>Activos</span><span class="money-input">$ <input id="lab-assets" type="number" min="1" step="100" value="10000" inputmode="decimal" /></span></label>
+          <label><span>Deuda</span><span class="money-input">$ <input id="lab-debt" type="number" min="0" step="100" value="5000" inputmode="decimal" /></span></label>
+          <label><span>Tasa anual</span><span class="percent-input"><input id="lab-rate" type="number" min="0" step="0.5" value="12" inputmode="decimal" /> %</span></label>
+          <button id="reset-debt-lab" type="button">Restablecer</button>
+          <p id="lab-status" role="status">Patrimonio financiado por el propietario: $5,000.</p>
+        </form>
         <div class="capital-grid">
-          <article><div class="case-label"><span>Alternativa A</span><b>Sin deuda</b></div><strong class="asset-total">$10,000</strong><small>Activos totales</small><div class="capital-bar"><i class="equity full"></i></div><div class="capital-legend"><span>Patrimonio <b>$10,000 · 100%</b></span><span>Deuda <b>$0 · 0%</b></span></div><div class="ratio">Deuda / Patrimonio <strong>0.0×</strong></div></article>
-          <article><div class="case-label"><span>Alternativa B</span><b>Con apalancamiento</b></div><strong class="asset-total">$10,000</strong><small>Activos totales</small><div class="capital-bar"><i class="equity half"></i><i class="debt half"></i></div><div class="capital-legend"><span>Patrimonio <b>$5,000 · 50%</b></span><span>Deuda <b>$5,000 · 50%</b></span></div><div class="ratio">Deuda / Patrimonio <strong>1.0×</strong></div></article>
+          <article><div class="case-label"><span>Alternativa A</span><b>Sin deuda</b></div><strong class="asset-total" data-capital="assets">$10,000</strong><small>Activos totales</small><div class="capital-bar"><i class="equity full"></i></div><div class="capital-legend"><span>Patrimonio <b data-capital="all-equity">$10,000 · 100%</b></span><span>Deuda <b>$0 · 0%</b></span></div><div class="ratio">Deuda / Patrimonio <strong>0.0×</strong></div></article>
+          <article><div class="case-label"><span>Alternativa B</span><b>Con apalancamiento</b></div><strong class="asset-total" data-capital="assets">$10,000</strong><small>Activos totales</small><div class="capital-bar"><i class="equity half" id="capital-equity-bar"></i><i class="debt half" id="capital-debt-bar"></i></div><div class="capital-legend"><span>Patrimonio <b id="capital-equity">$5,000 · 50%</b></span><span>Deuda <b id="capital-debt">$5,000 · 50%</b></span></div><div class="ratio">Deuda / Patrimonio <strong id="capital-ratio">1.0×</strong></div></article>
         </div>
         <div class="debt-takeaway"><span>Pregunta clave</span><p>Si ambos negocios invierten $10,000, ¿por qué podría ser diferente la rentabilidad del propietario?</p><strong>La estructura de capital modifica la rentabilidad y el riesgo.</strong></div>
         <aside class="speaker-notes" hidden>La deuda permite financiar activos con recursos de terceros sin aportar todo el capital propio, pero crea una obligación financiera que debe pagarse incluso si el rendimiento cae.</aside>
@@ -400,7 +407,7 @@
 
       <section class="slide debt-case leverage-case positive" data-slide="12" aria-label="Apalancamiento financiero positivo">
         <header class="debt-meta"><span>03 · Las deudas</span><b>Apalancamiento positivo · 02:00</b></header>
-        <div class="debt-title"><span class="section-label">ROA 20% · costo de deuda 12%</span><h2>¿Cómo puede una deuda aumentar<br />la rentabilidad del <strong>propietario?</strong></h2></div>
+        <div class="debt-title"><span class="section-label" data-scenario-label="favorable">ROA 20% · costo de deuda 12%</span><label class="scenario-editor">Prueba otro ROA <span><input data-roa-input="favorable" type="number" step="0.5" value="20" inputmode="decimal" /> %</span></label><h2>¿Cómo puede una deuda aumentar<br />la rentabilidad del <strong>propietario?</strong></h2></div>
         <div class="roe-stage">
           <article><span>Sin deuda</span><div class="roe-number">20%</div><ul><li>Resultado operativo <b>$2,000</b></li><li>Intereses <b>$0</b></li><li>Resultado final <b>$2,000</b></li><li>Patrimonio <b>$10,000</b></li></ul><small>ROE = $2,000 ÷ $10,000</small></article>
           <div class="roe-delta gain"><span>Diferencia</span><strong>+8 pp</strong><small>de ROE</small></div>
@@ -414,7 +421,7 @@
 
       <section class="slide debt-case leverage-case negative" data-slide="13" aria-label="Apalancamiento financiero desfavorable">
         <header class="debt-meta"><span>03 · Las deudas</span><b>Apalancamiento negativo · 01:30</b></header>
-        <div class="debt-title"><span class="section-label">ROA 8% · costo de deuda 12%</span><h2>¿Puede un negocio rentable perder atractivo<br />por utilizar <strong>deuda?</strong></h2></div>
+        <div class="debt-title"><span class="section-label" data-scenario-label="unfavorable">ROA 8% · costo de deuda 12%</span><label class="scenario-editor">Prueba otro ROA <span><input data-roa-input="unfavorable" type="number" step="0.5" value="8" inputmode="decimal" /> %</span></label><h2>¿Puede un negocio rentable perder atractivo<br />por utilizar <strong>deuda?</strong></h2></div>
         <div class="roe-stage">
           <article><span>Sin deuda</span><div class="roe-number">8%</div><ul><li>Resultado operativo <b>$800</b></li><li>Intereses <b>$0</b></li><li>Resultado final <b>$800</b></li><li>Patrimonio <b>$10,000</b></li></ul><small>ROE = $800 ÷ $10,000</small></article>
           <div class="roe-delta loss"><span>Diferencia</span><strong>−4 pp</strong><small>de ROE</small></div>
@@ -428,7 +435,7 @@
 
       <section class="slide debt-case loss-case" data-slide="14" aria-label="La deuda amplifica las pérdidas">
         <header class="debt-meta"><span>03 · Las deudas</span><b>Amplificación de pérdidas · 02:00</b></header>
-        <div class="debt-title"><span class="section-label">ROA −5% · los intereses no desaparecen</span><h2>Si la inversión pierde dinero,<br />¿qué ocurre con el <strong>apalancamiento?</strong></h2></div>
+        <div class="debt-title"><span class="section-label" data-scenario-label="loss">ROA −5% · los intereses no desaparecen</span><label class="scenario-editor">Prueba otro ROA <span><input data-roa-input="loss" type="number" step="0.5" value="-5" inputmode="decimal" /> %</span></label><h2>Si la inversión pierde dinero,<br />¿qué ocurre con el <strong>apalancamiento?</strong></h2></div>
         <div class="loss-visual">
           <article><span>Sin deuda</span><div class="negative-bar mild"><b>−5%</b></div><p>Resultado operativo <strong>−$500</strong></p><p>Intereses <strong>$0</strong></p><p>Resultado final <strong>−$500</strong></p></article>
           <article><span>Con deuda</span><div class="negative-bar severe"><b>−22%</b></div><p>Resultado operativo <strong>−$500</strong></p><p>Intereses <strong>−$600</strong></p><p>Resultado final <strong>−$1,100</strong></p></article>
@@ -472,6 +479,7 @@
     </main>
     <script>window.__diagErrors=[];window.addEventListener('error',event=>window.__diagErrors.push(`${event.message} · ${event.filename}:${event.lineno}`));</script>
     <script src="debt-math.js?v=1"></script>
+    <script src="debt-simulator.js?v=1"></script>
     <script src="deck-v3.js?v=32"></script>
     <script src="diagnostic.js?v=36"></script>
   </body>
