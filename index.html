@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#02090b" />
     <title>Finanzas Sin Filtro | Mtro. Luis Valladares</title>
-    <link rel="stylesheet" href="styles.css?v=58" />
+    <link rel="stylesheet" href="styles.css?v=59" />
   </head>
   <body>
     <main class="deck" aria-live="polite">
@@ -410,11 +410,18 @@
           <div class="leverage-row editable-row"><div><span>Crecimiento esperado</span><small>Aplicado a ambos casos</small></div><label><input id="lab-growth" type="number" step="1" value="20" inputmode="decimal" /> %</label><b data-leverage="growth-b">20%</b></div>
           <div class="leverage-row"><div><span>Ventas proyectadas</span><small>Ventas anteriores × (1 + crecimiento)</small></div><b data-leverage="projected-a">$1,800</b><b data-leverage="projected-b">$3,600</b></div>
           <div class="leverage-row"><div><span>Costos y gastos</span><small>Ventas proyectadas × porcentaje de costos</small></div><b data-leverage="costs-a">−$1,260</b><b data-leverage="costs-b">−$2,520</b></div>
-          <div class="leverage-row result-row"><div><span>Utilidad operativa</span><small>Ventas proyectadas − costos</small></div><b data-leverage="operating-a">$540</b><b data-leverage="operating-b">$1,080</b></div>
-          <div class="leverage-row editable-row"><div><span>Tasa anual de la deuda</span><small>Costo financiero del caso B</small></div><b>0%</b><label><input id="lab-rate" type="number" min="0" step="0.5" value="12" inputmode="decimal" /> %</label></div>
-          <div class="leverage-row"><div><span>Intereses anuales</span><small>Deuda × tasa anual</small></div><b>$0</b><b data-leverage="interest-b">−$180</b></div>
-          <div class="leverage-row net-row"><div><span>Utilidad después de intereses</span><small>Utilidad operativa − intereses</small></div><b data-leverage="net-a">$540</b><b data-leverage="net-b">$900</b></div>
-          <div class="leverage-verdict"><div><span>Resultado del apalancamiento</span><strong data-leverage="difference">+$360</strong></div><p id="lab-status" role="status">La deuda genera utilidad adicional después de pagar sus intereses.</p><button id="reset-debt-lab" type="button">Restablecer</button></div>
+          <div class="leverage-row net-row"><div><span>Utilidad neta</span><small>Ventas totales − costos y gastos</small></div><b data-leverage="net-a">$540</b><b data-leverage="net-b">$1,080</b></div>
+          <div class="leverage-verdict"><div><span>Diferencia positiva de utilidad</span><small data-leverage="difference-formula">$1,080 − $540</small><strong data-leverage="difference">= +$540</strong></div><p id="lab-status" role="status">La inyección duplica la capacidad de venta y genera $540 adicionales al mes.</p><button id="reset-debt-lab" type="button">Restablecer</button></div>
+          <aside class="loan-reference" aria-label="Referencia del financiamiento">
+            <div class="loan-reference-heading"><span>Referencia del financiamiento</span><strong>¿El flujo adicional paga la cuota?</strong></div>
+            <div><span>Monto financiado<small>Deuda utilizada</small></span><b data-loan="amount">$1,500</b></div>
+            <label><span>Tasa anual<small>Dato editable</small></span><span><input id="lab-rate" type="number" min="0" step="0.5" value="12" inputmode="decimal" /> %</span></label>
+            <label><span>Plazo<small>Dato editable</small></span><span><input id="lab-term" type="number" min="1" step="1" value="6" inputmode="numeric" /> meses</span></label>
+            <div><span>Cuota mensual<small>Pago nivelado de capital e intereses</small></span><b data-loan="payment">$258.83</b></div>
+            <div><span>Utilidad adicional<small>Flujo disponible para la cuota</small></span><b data-loan="extra-profit">$540</b></div>
+            <div class="loan-balance"><span>Disponible después de cuota<small>Durante los 6 meses</small></span><b data-loan="balance">$281.17</b></div>
+            <p data-loan="reading">La utilidad adicional cubre la cuota. Al terminar el mes 6, los $540 mensuales adicionales quedan libres para el propietario.</p>
+          </aside>
         </form>
         <aside class="speaker-notes" hidden>La deuda permite financiar activos con recursos de terceros sin aportar todo el capital propio, pero crea una obligación financiera que debe pagarse incluso si el rendimiento cae.</aside>
         <footer class="slide-footer"><span>Finanzas Sin Filtro · Bloque 3</span><b>11 / 11</b></footer>
@@ -434,7 +441,7 @@
     </main>
     <script>window.__diagErrors=[];window.addEventListener('error',event=>window.__diagErrors.push(`${event.message} · ${event.filename}:${event.lineno}`));</script>
     <script src="debt-math.js?v=1"></script>
-    <script src="debt-simulator.js?v=4"></script>
+    <script src="debt-simulator.js?v=5"></script>
     <script src="deck-v3.js?v=32"></script>
     <script src="diagnostic.js?v=36"></script>
   </body>
