@@ -18,3 +18,15 @@ La configuración está declarada en `render.yaml`.
 
 Los despliegues automáticos están desactivados para evitar publicar cada
 movimiento o corrección intermedia.
+
+## Despliegue desde Terminal
+
+Guarda una sola vez el Deploy Hook secreto de Render en tu sesión y ejecuta:
+
+```bash
+export RENDER_DEPLOY_HOOK_URL='PEGA_AQUI_EL_DEPLOY_HOOK'
+./deploy-manual.sh
+```
+
+El script rechaza cambios sin commit, sube `main` y solicita a Render que
+publique exactamente el commit aprobado.
