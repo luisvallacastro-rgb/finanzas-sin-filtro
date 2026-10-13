@@ -13,7 +13,7 @@
   const money = value => `${value < 0 ? '−' : ''}$${Math.abs(value).toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
   const percent = value => `${value < 0 ? '−' : ''}${Math.abs(value * 100).toFixed(1).replace('.0', '')}%`;
   const pp = value => `${value > 0 ? '+' : value < 0 ? '−' : ''}${Math.abs(value * 100).toFixed(1).replace('.0', '')} pp`;
-  const number = input => Number.parseFloat(input.value);
+  const number = (input, emptyValue = Number.NaN) => input.value.trim() === '' ? emptyValue : Number.parseFloat(input.value);
 
   function setText(node, value) { if (node) node.textContent = value; }
 
@@ -34,7 +34,7 @@
       setText(output('assets-a'), money(result.assets)); setText(output('assets-b'), money(result.assets));
       setText(output('equity-a'), money(result.equityUnleveraged)); setText(output('equity-b'), money(result.equityLeveraged));
       setText(output('debt'), money(result.debt));
-      setText(output('leverage'), `${(result.debt / result.equityLeveraged).toFixed(2)}×`);
+      setText(output('leverage'), result.debt === 0 ? 'Sin deuda' : `$${(result.debt / result.equityLeveraged).toFixed(2)} por $1`);
       setText(output('operating-a'), money(result.operatingResult)); setText(output('operating-b'), money(result.operatingResult));
       setText(output('interest'), money(-result.interest));
       setText(output('profit-a'), money(result.unleveragedResult)); setText(output('profit-b'), money(result.leveragedResult));
@@ -90,8 +90,8 @@
 
   function render() {
     const assets = number(assetsInput);
-    const debt = number(debtInput);
-    const debtRate = number(rateInput) / 100;
+    const debt = number(debtInput, 0);
+    const debtRate = number(rateInput, 0) / 100;
     const valid = Number.isFinite(assets) && Number.isFinite(debt) && Number.isFinite(debtRate) && assets > 0 && debt >= 0 && debt < assets && debtRate >= 0;
     lab.classList.toggle('has-error', !valid);
     if (!valid) {
@@ -106,10 +106,17 @@
     setText(document.querySelector('[data-capital="all-equity"]'), `${money(assets)} · 100%`);
     setText(document.querySelector('#capital-equity'), `${money(base.equityLeveraged)} · ${percent(equityShare)}`);
     setText(document.querySelector('#capital-debt'), `${money(debt)} · ${percent(debtShare)}`);
-    setText(document.querySelector('#capital-ratio'), `${(debt / base.equityLeveraged).toFixed(2)}×`);
+    const debtPerDollar = debt / base.equityLeveraged;
+    setText(document.querySelector('#capital-mode'), debt === 0 ? 'Sin deuda' : 'Con deuda');
+    setText(document.querySelector('#capital-ratio'), debt === 0 ? 'Sin deuda' : `$${debtPerDollar.toFixed(2)} por $1`);
+    setText(document.querySelector('#capital-ratio-note'), debt === 0 ? 'El patrimonio financia el 100% de los activos' : `Por cada $1 aportado, hay $${debtPerDollar.toFixed(2)} de deuda`);
     document.querySelector('#capital-equity-bar').style.width = `${equityShare * 100}%`;
     document.querySelector('#capital-debt-bar').style.width = `${debtShare * 100}%`;
-    status.textContent = `Consecuencia base: aportas ${money(base.equityLeveraged)} y asumes ${money(base.interest)} de intereses anuales.`;
+    status.textContent = debt === 0
+      ? `Sin deuda: el patrimonio es ${money(assets)} y financia el 100% de los activos.`
+      : debtRate === 0
+        ? `Deuda sin intereses: aportas ${money(base.equityLeveraged)} y utilizas ${money(debt)} prestados sin costo financiero.`
+        : `Consecuencia base: aportas ${money(base.equityLeveraged)} y asumes ${money(base.interest)} de intereses anuales.`;
 
     names.forEach(name => {
       const roa = number(document.querySelector(`[data-roa-input="${name}"]`)) / 100;
@@ -119,6 +126,10 @@
 
   lab.addEventListener('submit', event => event.preventDefault());
   document.querySelectorAll('#debt-lab input,[data-roa-input]').forEach(input => input.addEventListener('input', render));
+  [debtInput, rateInput].forEach(input => input.addEventListener('blur', () => {
+    if (input.value.trim() === '') input.value = '0';
+    render();
+  }));
   document.querySelector('#reset-debt-lab').addEventListener('click', () => {
     assetsInput.value = defaults.assets; debtInput.value = defaults.debt; rateInput.value = defaults.rate;
     names.forEach(name => { document.querySelector(`[data-roa-input="${name}"]`).value = defaults[name]; });

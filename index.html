@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#02090b" />
     <title>Finanzas Sin Filtro | Mtro. Luis Valladares</title>
-    <link rel="stylesheet" href="styles.css?v=56" />
+    <link rel="stylesheet" href="styles.css?v=57" />
   </head>
   <body>
     <main class="deck" aria-live="polite">
@@ -407,8 +407,8 @@
           <p id="lab-status" role="status">Patrimonio financiado por el propietario: $5,000.</p>
         </form>
         <div class="capital-grid">
-          <article><div class="case-label"><span>Alternativa A</span><b>Sin deuda</b></div><strong class="asset-total" data-capital="assets">$10,000</strong><small>Activos totales</small><div class="capital-bar"><i class="equity full"></i></div><div class="capital-legend"><span>Patrimonio <b data-capital="all-equity">$10,000 · 100%</b></span><span>Deuda <b>$0 · 0%</b></span></div><div class="ratio">Deuda / Patrimonio <strong>0.0×</strong></div></article>
-          <article><div class="case-label"><span>Alternativa B</span><b>Con apalancamiento</b></div><strong class="asset-total" data-capital="assets">$10,000</strong><small>Activos totales</small><div class="capital-bar"><i class="equity half" id="capital-equity-bar"></i><i class="debt half" id="capital-debt-bar"></i></div><div class="capital-legend"><span>Patrimonio <b id="capital-equity">$5,000 · 50%</b></span><span>Deuda <b id="capital-debt">$5,000 · 50%</b></span></div><div class="ratio">Deuda / Patrimonio <strong id="capital-ratio">1.0×</strong></div></article>
+          <article><div class="case-label"><span>Alternativa A</span><b>Sin deuda</b></div><strong class="asset-total" data-capital="assets">$10,000</strong><small>Activos totales</small><div class="capital-bar"><i class="equity full"></i></div><div class="capital-legend"><span>Patrimonio <b data-capital="all-equity">$10,000 · 100%</b></span><span>Deuda <b>$0 · 0%</b></span></div><div class="ratio"><span>Relación deuda / capital<small>El patrimonio financia el 100% de los activos</small></span><strong>Sin deuda</strong></div></article>
+          <article><div class="case-label"><span>Alternativa B</span><b id="capital-mode">Con deuda</b></div><strong class="asset-total" data-capital="assets">$10,000</strong><small>Activos totales</small><div class="capital-bar"><i class="equity half" id="capital-equity-bar"></i><i class="debt half" id="capital-debt-bar"></i></div><div class="capital-legend"><span>Patrimonio <b id="capital-equity">$5,000 · 50%</b></span><span>Deuda <b id="capital-debt">$5,000 · 50%</b></span></div><div class="ratio"><span>Relación deuda / capital<small id="capital-ratio-note">Por cada $1 aportado, hay $1 de deuda</small></span><strong id="capital-ratio">$1.00 por $1</strong></div></article>
         </div>
         <div class="debt-takeaway"><span>Pregunta clave</span><p>Si ambos negocios invierten $10,000, ¿por qué podría ser diferente la rentabilidad del propietario?</p><strong>La estructura de capital modifica la rentabilidad y el riesgo.</strong></div>
         <aside class="speaker-notes" hidden>La deuda permite financiar activos con recursos de terceros sin aportar todo el capital propio, pero crea una obligación financiera que debe pagarse incluso si el rendimiento cae.</aside>
@@ -423,7 +423,7 @@
           <div class="comparison-row"><div><span>Inversión total</span><small>Activos utilizados</small></div><b data-compare="assets-a">$10,000</b><b data-compare="assets-b">$10,000</b></div>
           <div class="comparison-row"><div><span>Capital aportado</span><small>Activos − deuda</small></div><b data-compare="equity-a">$10,000</b><b data-compare="equity-b">$5,000</b></div>
           <div class="comparison-row"><div><span>Deuda</span><small>Recursos prestados</small></div><b>$0</b><b data-compare="debt">$5,000</b></div>
-          <div class="comparison-row"><div><span>Apalancamiento</span><small>Deuda ÷ capital</small></div><b>0.00×</b><b data-compare="leverage">1.00×</b></div>
+          <div class="comparison-row"><div><span>Relación deuda / capital</span><small>Deuda ÷ capital aportado</small></div><b>Sin deuda</b><b data-compare="leverage">$1.00 por $1</b></div>
           <div class="comparison-row"><div><span>Ganancia operativa</span><small>Activos × ROA</small></div><b data-compare="operating-a">$2,000</b><b data-compare="operating-b">$2,000</b></div>
           <div class="comparison-row"><div><span>Intereses</span><small>Deuda × tasa anual</small></div><b>$0</b><b data-compare="interest">−$600</b></div>
           <div class="comparison-row result-row"><div><span>Ganancia final</span><small>Ganancia operativa − intereses</small></div><b data-compare="profit-a">$2,000</b><b data-compare="profit-b">$1,400</b></div>
@@ -443,7 +443,7 @@
           <div class="comparison-row"><div><span>Inversión total</span><small>Activos utilizados</small></div><b data-compare="assets-a">$10,000</b><b data-compare="assets-b">$10,000</b></div>
           <div class="comparison-row"><div><span>Capital aportado</span><small>Activos − deuda</small></div><b data-compare="equity-a">$10,000</b><b data-compare="equity-b">$5,000</b></div>
           <div class="comparison-row"><div><span>Deuda</span><small>Recursos prestados</small></div><b>$0</b><b data-compare="debt">$5,000</b></div>
-          <div class="comparison-row"><div><span>Apalancamiento</span><small>Deuda ÷ capital</small></div><b>0.00×</b><b data-compare="leverage">1.00×</b></div>
+          <div class="comparison-row"><div><span>Relación deuda / capital</span><small>Deuda ÷ capital aportado</small></div><b>Sin deuda</b><b data-compare="leverage">$1.00 por $1</b></div>
           <div class="comparison-row"><div><span>Ganancia operativa</span><small>Activos × ROA</small></div><b data-compare="operating-a">$800</b><b data-compare="operating-b">$800</b></div>
           <div class="comparison-row"><div><span>Intereses</span><small>Deuda × tasa anual</small></div><b>$0</b><b data-compare="interest">−$600</b></div>
           <div class="comparison-row result-row"><div><span>Ganancia final</span><small>Ganancia operativa − intereses</small></div><b data-compare="profit-a">$800</b><b data-compare="profit-b">$200</b></div>
@@ -501,7 +501,7 @@
     </main>
     <script>window.__diagErrors=[];window.addEventListener('error',event=>window.__diagErrors.push(`${event.message} · ${event.filename}:${event.lineno}`));</script>
     <script src="debt-math.js?v=1"></script>
-    <script src="debt-simulator.js?v=2"></script>
+    <script src="debt-simulator.js?v=3"></script>
     <script src="deck-v3.js?v=32"></script>
     <script src="diagnostic.js?v=36"></script>
   </body>
