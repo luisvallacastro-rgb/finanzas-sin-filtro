@@ -4,11 +4,15 @@
   if (!api || !lab) return;
 
   const assetsInput = document.querySelector('#lab-assets');
+  const salesInput = document.querySelector('#lab-sales');
+  const costRateInput = document.querySelector('#lab-cost-rate');
   const debtInput = document.querySelector('#lab-debt');
+  const debtSalesInput = document.querySelector('#lab-debt-sales');
+  const growthInput = document.querySelector('#lab-growth');
   const rateInput = document.querySelector('#lab-rate');
   const status = document.querySelector('#lab-status');
-  const defaults = { assets: 10000, debt: 5000, rate: 12, favorable: 20, unfavorable: 8, loss: -5 };
-  const names = ['favorable', 'unfavorable', 'loss'];
+  const defaults = { assets: 10000, sales: 1500, costRate: 70, debt: 1500, debtSales: 100, growth: 20, rate: 12, favorable: 20, unfavorable: 8, loss: -5 };
+  const names = [];
 
   const money = value => `${value < 0 ? '−' : ''}$${Math.abs(value).toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
   const percent = value => `${value < 0 ? '−' : ''}${Math.abs(value * 100).toFixed(1).replace('.0', '')}%`;
@@ -89,34 +93,56 @@
   }
 
   function render() {
-    const assets = number(assetsInput);
+    const sales = number(salesInput, 0);
+    const costRate = number(costRateInput, 0) / 100;
     const debt = number(debtInput, 0);
+    const debtSalesRate = number(debtSalesInput, 0) / 100;
+    const growthRate = number(growthInput, 0) / 100;
     const debtRate = number(rateInput, 0) / 100;
-    const valid = Number.isFinite(assets) && Number.isFinite(debt) && Number.isFinite(debtRate) && assets > 0 && debt >= 0 && debt < assets && debtRate >= 0;
+    const assets = Math.max(number(assetsInput, defaults.assets), debt * 2, 1);
+    assetsInput.value = assets;
+    const valid = [sales, costRate, debt, debtSalesRate, growthRate, debtRate].every(Number.isFinite)
+      && sales >= 0 && costRate >= 0 && costRate <= 1 && debt >= 0 && debtSalesRate >= 0 && growthRate > -1 && debtRate >= 0;
     lab.classList.toggle('has-error', !valid);
     if (!valid) {
-      status.textContent = 'Para calcular, usa activos mayores que cero y una deuda entre $0 y un valor menor que los activos.';
+      status.textContent = 'Revisa los campos amarillos: costos entre 0% y 100%, crecimiento mayor que −100% y valores sin deuda o tasas negativas.';
       return;
     }
 
-    const base = api.calculate({ assets, debt, debtRate, roa: 0 });
-    const debtShare = debt / assets;
-    const equityShare = base.equityLeveraged / assets;
-    document.querySelectorAll('[data-capital="assets"]').forEach(node => setText(node, money(assets)));
-    setText(document.querySelector('[data-capital="all-equity"]'), `${money(assets)} · 100%`);
-    setText(document.querySelector('#capital-equity'), `${money(base.equityLeveraged)} · ${percent(equityShare)}`);
-    setText(document.querySelector('#capital-debt'), `${money(debt)} · ${percent(debtShare)}`);
-    const debtPerDollar = debt / base.equityLeveraged;
-    setText(document.querySelector('#capital-mode'), debt === 0 ? 'Sin deuda' : 'Con deuda');
-    setText(document.querySelector('#capital-ratio'), debt === 0 ? 'Sin deuda' : `$${debtPerDollar.toFixed(2)} por $1`);
-    setText(document.querySelector('#capital-ratio-note'), debt === 0 ? 'El patrimonio financia el 100% de los activos' : `Por cada $1 aportado, hay $${debtPerDollar.toFixed(2)} de deuda`);
-    document.querySelector('#capital-equity-bar').style.width = `${equityShare * 100}%`;
-    document.querySelector('#capital-debt-bar').style.width = `${debtShare * 100}%`;
+    const extraSales = debt * debtSalesRate;
+    const preSalesA = sales;
+    const preSalesB = sales + extraSales;
+    const projectedA = preSalesA * (1 + growthRate);
+    const projectedB = preSalesB * (1 + growthRate);
+    const costsA = projectedA * costRate;
+    const costsB = projectedB * costRate;
+    const operatingA = projectedA - costsA;
+    const operatingB = projectedB - costsB;
+    const interest = debt * debtRate;
+    const netA = operatingA;
+    const netB = operatingB - interest;
+    const difference = netB - netA;
+    const leverageOutput = key => document.querySelector(`[data-leverage="${key}"]`);
+    setText(leverageOutput('base-sales-b'), money(sales));
+    setText(leverageOutput('cost-rate-b'), percent(costRate));
+    setText(leverageOutput('pre-sales-a'), money(preSalesA)); setText(leverageOutput('pre-sales-b'), money(preSalesB));
+    setText(leverageOutput('growth-b'), percent(growthRate));
+    setText(leverageOutput('projected-a'), money(projectedA)); setText(leverageOutput('projected-b'), money(projectedB));
+    setText(leverageOutput('costs-a'), `−${money(costsA)}`); setText(leverageOutput('costs-b'), `−${money(costsB)}`);
+    setText(leverageOutput('operating-a'), money(operatingA)); setText(leverageOutput('operating-b'), money(operatingB));
+    setText(leverageOutput('interest-b'), `−${money(interest)}`);
+    setText(leverageOutput('net-a'), money(netA)); setText(leverageOutput('net-b'), money(netB));
+    setText(leverageOutput('difference'), `${difference > 0 ? '+' : difference < 0 ? '−' : ''}${money(Math.abs(difference))}`);
+    const verdict = lab.querySelector('.leverage-verdict');
+    verdict.classList.toggle('is-positive', difference > 0);
+    verdict.classList.toggle('is-negative', difference < 0);
     status.textContent = debt === 0
-      ? `Sin deuda: el patrimonio es ${money(assets)} y financia el 100% de los activos.`
-      : debtRate === 0
-        ? `Deuda sin intereses: aportas ${money(base.equityLeveraged)} y utilizas ${money(debt)} prestados sin costo financiero.`
-        : `Consecuencia base: aportas ${money(base.equityLeveraged)} y asumes ${money(base.interest)} de intereses anuales.`;
+      ? `Sin deuda no existe apalancamiento: ambos casos terminan con ${money(netA)} de utilidad.`
+      : difference > 0
+        ? `Apalancamiento favorable: la deuda añade ${money(extraSales)} de ventas y deja ${money(difference)} más de utilidad después de pagar ${money(interest)} de intereses.`
+        : difference < 0
+          ? `Apalancamiento desfavorable: el costo y los intereses reducen la utilidad en ${money(Math.abs(difference))} frente al caso sin deuda.`
+          : 'Punto de equilibrio: la utilidad adicional generada por la deuda cubre exactamente su costo financiero.';
 
     names.forEach(name => {
       const roa = number(document.querySelector(`[data-roa-input="${name}"]`)) / 100;
@@ -126,12 +152,13 @@
 
   lab.addEventListener('submit', event => event.preventDefault());
   document.querySelectorAll('#debt-lab input,[data-roa-input]').forEach(input => input.addEventListener('input', render));
-  [debtInput, rateInput].forEach(input => input.addEventListener('blur', () => {
+  [salesInput, costRateInput, debtInput, debtSalesInput, growthInput, rateInput].forEach(input => input.addEventListener('blur', () => {
     if (input.value.trim() === '') input.value = '0';
     render();
   }));
   document.querySelector('#reset-debt-lab').addEventListener('click', () => {
-    assetsInput.value = defaults.assets; debtInput.value = defaults.debt; rateInput.value = defaults.rate;
+    assetsInput.value = defaults.assets; salesInput.value = defaults.sales; costRateInput.value = defaults.costRate;
+    debtInput.value = defaults.debt; debtSalesInput.value = defaults.debtSales; growthInput.value = defaults.growth; rateInput.value = defaults.rate;
     names.forEach(name => { document.querySelector(`[data-roa-input="${name}"]`).value = defaults[name]; });
     render();
   });
