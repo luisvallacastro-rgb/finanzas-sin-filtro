@@ -1333,14 +1333,14 @@ body {
   .debt-case .slide-footer { gap:12px; align-items:flex-end; font-size:.5rem; }
 }
 
-.wealth-liquidity { background:radial-gradient(circle at 50% 42%,rgba(36,54,83,.72),transparent 52%),#101d35; }
-.wealth-liquidity::before { content:""; position:absolute; inset:0; background-image:linear-gradient(rgba(113,228,234,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(113,228,234,.035) 1px,transparent 1px); background-size:56px 56px; pointer-events:none; }
-.wealth-liquidity-heading { position:relative; z-index:1; margin:22px auto 18px; text-align:center; }
-.wealth-liquidity-heading h2 { margin:8px 0 4px; color:#f4f8f8; font-size:clamp(2.2rem,4.3vw,4.5rem); line-height:.92; letter-spacing:-.055em; }
-.wealth-liquidity-heading h2 strong { color:#75d6a1; font-weight:inherit; }.wealth-liquidity-heading h2 em { color:#f4cb7e; font-style:normal; }
-.wealth-liquidity-heading p { margin:9px 0 0; color:#a9b8c5; font-size:.88rem; }
-.wealth-liquidity-grid { position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:26px; width:min(1280px,92%); margin:0 auto; }
-.wealth-panel { min-height:332px; padding:23px 27px 18px; border:1px solid rgba(113,228,234,.22); border-radius:4px; background:linear-gradient(145deg,rgba(36,54,83,.96),rgba(13,31,49,.96)); box-shadow:0 18px 45px rgba(0,0,0,.18); }
+.wealth-liquidity { isolation:isolate; background:radial-gradient(circle at 50% 54%,rgba(16,184,200,.1),transparent 40%),#02090b; }
+.wealth-liquidity::before { content:""; position:absolute; inset:0; z-index:-1; opacity:.32; background-image:linear-gradient(rgba(113,228,234,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(113,228,234,.04) 1px,transparent 1px); background-size:5vw 5vw; pointer-events:none; }
+.wealth-liquidity-heading { position:relative; z-index:1; margin:110px auto 25px; text-align:center; }
+.wealth-liquidity-heading h2 { margin:11px 0 4px; color:#eef6f6; font-size:clamp(2.2rem,3.7vw,4.4rem); line-height:.94; letter-spacing:-.055em; font-weight:570; }
+.wealth-liquidity-heading h2 strong { color:var(--cyan); font:inherit; }.wealth-liquidity-heading h2 em { color:#f2c66d; font:inherit; font-style:normal; }
+.wealth-liquidity-heading p { margin:10px 0 0; color:#81979a; font-size:clamp(.76rem,.9vw,1rem); }
+.wealth-liquidity-grid { position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:30px; width:min(88vw,1320px); margin:0 auto; }
+.wealth-panel { min-height:clamp(300px,34vh,370px); padding:clamp(22px,2.2vw,34px); border:1px solid rgba(113,228,234,.18); border-radius:0; background:linear-gradient(145deg,rgba(11,35,39,.94),rgba(3,15,17,.94)); box-shadow:none; }
 .wealth-panel-title { display:flex; align-items:center; gap:13px; margin-bottom:15px; }.wealth-panel-title>span { display:grid; place-items:center; width:42px; height:42px; border:1px solid rgba(244,203,126,.5); border-radius:50%; color:#f4cb7e; font-size:1.25rem; font-weight:900; }.wealth-panel-title small { display:block; color:#8196a8; font-size:.54rem; font-weight:900; letter-spacing:.16em; text-transform:uppercase; }.wealth-panel-title h3 { margin:3px 0 0; color:#fff; font-size:1.25rem; }
 .wealth-panel>label { display:flex; justify-content:space-between; align-items:center; gap:18px; min-height:44px; border-bottom:1px solid rgba(255,255,255,.07); color:#c2cdd6; font-size:.72rem; }
 .wealth-input { display:flex; align-items:center; gap:4px; min-width:178px; padding:6px 10px; border:1px solid rgba(244,203,126,.48); background:rgba(244,203,126,.1); color:#f4cb7e; font-weight:800; }
