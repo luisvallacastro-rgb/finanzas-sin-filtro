@@ -134,12 +134,9 @@
     document.querySelector('#metric-leisure-value').textContent = money.format(result.discretionary);
     document.querySelector('#metric-debt-rate').textContent = percent(result.debtRatio);
     document.querySelector('#metric-debt-absolute').textContent = money.format(result.debtPayment);
-    document.querySelector('#metric-saving-rate').textContent = percent(result.savingsRate);
-    document.querySelector('#metric-saving-value').textContent = money.format(Math.max(result.surplus, 0));
     document.querySelector('#essential-reading').textContent = result.essentialRatio > 60 ? 'Tus necesidades consumen una parte alta del ingreso. Revisa vivienda, servicios y transporte antes de recortar rubros básicos indiscriminadamente.' : 'Tus gastos necesarios guardan una proporción manejable frente al ingreso declarado.';
     document.querySelector('#leisure-reading').textContent = result.discretionary > 0 ? `Este rubro es flexible. Redirigir ${Math.round(result.savingShare * 100)}% liberaría ${money.format(result.suggestedSaving)} cada mes sin eliminar completamente el ocio.` : 'No declaraste gastos de ocio o compras discrecionales; la mejora deberá venir de ingresos, costos esenciales o deuda.';
     document.querySelector('#debt-reading').textContent = result.debtRatio > 35 ? 'La deuda supera el rango prudente del ingreso. Prioriza las obligaciones de mayor costo y evita nuevas cuotas.' : result.debtPayment > 0 ? 'La carga mensual de deuda está por debajo del umbral de alerta, pero debe vigilarse junto con el resto de gastos.' : 'No declaraste cuotas mensuales de deuda.';
-    document.querySelector('#saving-reading').textContent = result.suggestedSaving > 0 ? `Meta sugerida: trasladar ${money.format(result.suggestedSaving)} del ocio al ahorro; equivale a ${percent(result.income > 0 ? result.suggestedSaving / result.income * 100 : NaN)} del ingreso y ${money.format(result.suggestedSaving * 12)} al año.` : result.surplus > 0 ? `Tu excedente actual de ${money.format(result.surplus)} puede convertirse en ahorro automático mensual.` : 'Primero recupera un excedente mensual; actualmente no hay gasto discrecional declarado que pueda redirigirse.';
     document.querySelector('#formula-income').textContent = `${money.format(number('income'))} ingreso principal + ${money.format(number('extraIncome'))} adicionales, ajustados por frecuencia = ${money.format(result.income)} mensuales.`;
     document.querySelector('#formula-essential').textContent = `${money.format(number('housing'))} vivienda + ${money.format(number('food'))} alimentación + ${money.format(number('transport'))} transporte + ${money.format(number('utilities'))} servicios + ${money.format(number('educationHealth'))} educación/salud + ${money.format(number('otherEssential'))} otros = ${money.format(result.essential)}; ${money.format(result.essential)} ÷ ${money.format(result.income)} = ${percent(result.essentialRatio)}.`;
     document.querySelector('#formula-leisure').textContent = `${money.format(number('leisure'))} ocio/suscripciones + ${money.format(number('personal'))} compras = ${money.format(result.discretionary)}; ${money.format(result.discretionary)} ÷ ${money.format(result.income)} = ${percent(result.leisureRatio)}.`;
@@ -154,8 +151,9 @@
     document.querySelector('#bar-free').style.width = `${clamp(Math.max(result.surplus, 0) / base * 100, 0, 100)}%`;
 
     const slider = document.querySelector('#simulation-reduction');
-    slider.max = Math.max(100, Math.ceil(result.discretionary));
+    slider.max = Math.ceil(result.discretionary);
     slider.value = 0;
+    document.querySelector('#simulation-limit').textContent = `Máximo disponible en ocio: ${money.format(result.discretionary)}`;
     updateSimulation();
     showView('results');
   }
@@ -165,8 +163,24 @@
     const reduction = Number(document.querySelector('#simulation-reduction').value);
     const newSurplus = lastResult.surplus + reduction;
     const newMargin = lastResult.income > 0 ? newSurplus / lastResult.income * 100 : NaN;
+    const currentSaving = Math.max(lastResult.surplus, 0);
+    const projectedSaving = Math.max(newSurplus, 0);
+    const savingIncrease = projectedSaving - currentSaving;
+    const remainingDiscretionary = Math.max(lastResult.discretionary - reduction, 0);
+    const base = Math.max(lastResult.income, lastResult.totalExpense, 1);
     document.querySelector('#simulation-label').textContent = money.format(reduction);
-    document.querySelector('#simulation-result').textContent = `Nuevo excedente: ${money.format(newSurplus)} · Nuevo margen: ${percent(newMargin)}. Proyección educativa, no cambio realizado.`;
+    document.querySelector('#metric-saving-rate').textContent = percent(lastResult.income > 0 ? projectedSaving / lastResult.income * 100 : NaN);
+    document.querySelector('#metric-saving-value').textContent = money.format(projectedSaving);
+    document.querySelector('#saving-reading').textContent = reduction > 0
+      ? newSurplus > 0
+        ? `Al trasladar ${money.format(reduction)} del ocio, el ahorro potencial aumenta ${money.format(savingIncrease)} al mes y alcanza ${money.format(projectedSaving * 12)} al año.`
+        : `Trasladar ${money.format(reduction)} del ocio reduce el déficit, aunque todavía no genera ahorro mensual.`
+      : lastResult.discretionary > 0
+        ? `Usa el control inferior para trasladar hasta ${money.format(lastResult.discretionary)} del ocio al ahorro.`
+        : currentSaving > 0 ? 'Tu excedente actual puede convertirse en ahorro automático mensual.' : 'No declaraste gasto de ocio que pueda trasladarse al ahorro.';
+    document.querySelector('#bar-discretionary').style.width = `${clamp(remainingDiscretionary / base * 100, 0, 100)}%`;
+    document.querySelector('#bar-free').style.width = `${clamp(projectedSaving / base * 100, 0, 100)}%`;
+    document.querySelector('#simulation-result').textContent = `Ahorro mensual potencial: ${money.format(projectedSaving)} · Aumento: ${money.format(savingIncrease)} · ${percent(newMargin)} del ingreso disponible.`;
   }
 
   function resetDiagnostic() {

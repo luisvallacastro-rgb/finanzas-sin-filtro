@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#02090b" />
     <title>Finanzas Sin Filtro | Mtro. Luis Valladares</title>
-    <link rel="stylesheet" href="styles.css?v=67" />
+    <link rel="stylesheet" href="styles.css?v=68" />
   </head>
   <body>
     <main class="deck" aria-live="polite">
@@ -337,7 +337,7 @@
 
           <section class="diagnostic-view diagnostic-results" data-view="results">
             <div class="native-results-note"><strong>Prueba completada</strong><span>Abre esta página en Safari, Chrome o Firefox para obtener el cálculo automático y las recomendaciones personalizadas.</span><label for="native-step-1">Revisar respuestas</label></div>
-            <div class="results-heading"><div><span class="diagnostic-eyebrow">Resultado de tu radiografía financiera</span><h2 id="result-status">Solvencia moderada</h2></div><div class="health-score"><strong id="health-score">—</strong><span>/ 100</span><small>Indicador de solvencia</small></div></div>
+            <div class="results-heading"><div><span class="diagnostic-eyebrow">Resultado de tu radiografía financiera</span><h2 id="result-status">Solvencia moderada</h2></div><div class="health-score"><strong id="health-score">—</strong><span>%</span><small>Indicador de solvencia</small></div></div>
             <div class="result-metrics">
               <article><span>Ingreso mensual</span><strong id="metric-income">—</strong><small>Base del diagnóstico</small><p id="income-reading">—</p></article>
               <article><span>Excedente / déficit</span><strong id="metric-surplus">—</strong><small id="metric-surplus-rate">—</small><p id="surplus-reading">—</p></article>
@@ -354,7 +354,7 @@
             <div class="results-lower">
               <div class="distribution"><span>Distribución mensual</span><div class="distribution-bar"><i id="bar-essential"></i><i id="bar-debt"></i><i id="bar-discretionary"></i><i id="bar-free"></i></div><small>Esenciales · Deudas · Discrecional · Disponible</small></div>
               <div class="result-message"><span>Lectura de solvencia</span><p id="result-message">—</p><p id="result-secondary-message">—</p></div>
-              <div class="simulator"><span>¿Qué pasaría si…?</span><label>Reduces gastos discrecionales <input id="simulation-reduction" type="range" min="0" max="100" value="0" /><b id="simulation-label">$0</b></label><p id="simulation-result">Mueve el control para proyectar un cambio.</p></div>
+              <div class="simulator"><span>¿Qué pasaría si…?</span><label>Trasladas dinero del ocio al ahorro <input id="simulation-reduction" type="range" min="0" max="0" step="1" value="0" /><b id="simulation-label">$0</b><small id="simulation-limit">Máximo disponible en ocio: $0</small></label><p id="simulation-result">Mueve el control para proyectar un cambio.</p></div>
             </div>
             <details class="calculation-details" open>
               <summary>Cómo se calcularon tus indicadores</summary>
@@ -579,6 +579,6 @@
     <script src="investment-math.js?v=1"></script>
     <script src="investment-simulator.js?v=4"></script>
     <script src="deck-v3.js?v=32"></script>
-    <script src="diagnostic.js?v=38"></script>
+    <script src="diagnostic.js?v=39"></script>
   </body>
 </html>
