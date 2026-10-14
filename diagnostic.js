@@ -75,8 +75,6 @@
     const liabilities = number('debtBalance') + number('otherLiabilities');
     const totalAssets = liquid + number('assets');
     const netWorth = totalAssets - liabilities;
-    const monthlyObligations = essential + debtPayment;
-    const liquidSolvency = monthlyObligations > 0 ? liquid / monthlyObligations * 100 : NaN;
     const totalSolvency = liabilities > 0 ? totalAssets / liabilities * 100 : (totalAssets > 0 ? Infinity : NaN);
     const essentialRatio = income > 0 ? essential / income * 100 : NaN;
     const leisureRatio = income > 0 ? discretionary / income * 100 : NaN;
@@ -91,7 +89,7 @@
     const score = Math.round(marginScore + debtScore + reserveScore + balanceScore);
     const classification = score < 40 ? 'Solvencia crítica' : score < 60 ? 'Solvencia baja' : score < 80 ? 'Solvencia moderada' : 'Solvencia sólida';
 
-    return { income, essential, discretionary, debtPayment, totalExpense, surplus, margin, debtRatio, commitment, liquid, resistance, liabilities, totalAssets, netWorth, liquidSolvency, totalSolvency, essentialRatio, leisureRatio, savingsRate, savingShare, suggestedSaving, score, classification };
+    return { income, essential, discretionary, debtPayment, totalExpense, surplus, margin, debtRatio, commitment, liquid, resistance, liabilities, totalAssets, netWorth, totalSolvency, essentialRatio, leisureRatio, savingsRate, savingShare, suggestedSaving, score, classification };
   }
 
   function mainMessage(result) {
@@ -102,15 +100,12 @@
   }
 
   function solvencyMessage(result) {
-    const liquidText = Number.isFinite(result.liquidSolvency)
-      ? `Tu liquidez cubre ${result.liquidSolvency.toFixed(0)}% de un mes de gastos necesarios y cuotas.`
-      : 'No hay obligaciones mensuales suficientes para calcular la cobertura líquida.';
     const totalText = result.totalSolvency === Infinity
       ? 'No declaraste obligaciones pendientes: tus activos no están presionados por deuda registrada.'
       : Number.isFinite(result.totalSolvency)
         ? `Por cada $100 de obligaciones pendientes declaraste ${money.format(result.totalSolvency)} en activos y reservas.`
         : 'Registra activos y obligaciones pendientes para medir tu solvencia total.';
-    return `${liquidText} ${totalText}`;
+    return totalText;
   }
 
   function renderResults() {
@@ -121,8 +116,6 @@
     document.querySelector('#metric-income').textContent = money.format(result.income);
     document.querySelector('#metric-surplus').textContent = money.format(result.surplus);
     document.querySelector('#metric-surplus-rate').textContent = `${percent(result.margin)} del ingreso`;
-    document.querySelector('#metric-liquid-solvency').textContent = percent(result.liquidSolvency);
-    document.querySelector('#metric-liquid-solvency-value').textContent = `${money.format(result.liquid)} líquido`;
     document.querySelector('#metric-total-solvency').textContent = result.totalSolvency === Infinity ? 'Sin deuda' : percent(result.totalSolvency);
     document.querySelector('#metric-total-solvency-value').textContent = `${money.format(result.totalAssets)} activos / ${money.format(result.liabilities)} obligaciones`;
     document.querySelector('#metric-debt').textContent = percent(result.debtRatio);
@@ -130,7 +123,6 @@
     document.querySelector('#metric-networth').textContent = money.format(result.netWorth);
     document.querySelector('#income-reading').textContent = result.income > 0 ? 'Este es el ingreso mensual normalizado contra el que se comparan todos los compromisos.' : 'Sin ingreso mensual no es posible sostener gastos ni calcular proporciones saludables.';
     document.querySelector('#surplus-reading').textContent = result.surplus < 0 ? 'El presupuesto termina en déficit: cada mes falta dinero para cubrir lo declarado.' : result.margin < 10 ? 'Existe excedente, pero el margen es estrecho ante cualquier imprevisto.' : 'El presupuesto genera un margen positivo que puede convertirse en reserva y objetivos.';
-    document.querySelector('#liquid-solvency-reading').textContent = !Number.isFinite(result.liquidSolvency) ? 'No se puede medir sin gastos esenciales o cuotas.' : result.liquidSolvency < 100 ? 'Las reservas no cubren todavía un mes completo de obligaciones prioritarias.' : result.liquidSolvency < 300 ? 'Las reservas cubren entre uno y tres meses de obligaciones prioritarias.' : 'La liquidez cubre al menos tres meses de obligaciones prioritarias.';
     document.querySelector('#total-solvency-reading').textContent = result.totalSolvency === Infinity ? 'No registraste obligaciones pendientes; los activos declarados están libres de esa presión.' : !Number.isFinite(result.totalSolvency) ? 'Faltan activos u obligaciones para interpretar esta relación.' : result.totalSolvency < 100 ? 'Las obligaciones superan los activos declarados; el patrimonio está en posición vulnerable.' : result.totalSolvency < 150 ? 'Los activos cubren las obligaciones, aunque con un colchón patrimonial limitado.' : 'Los activos superan ampliamente las obligaciones declaradas.';
     document.querySelector('#debt-metric-reading').textContent = result.debtRatio > 35 ? 'Más de 35% del ingreso va a cuotas: la deuda restringe fuertemente la capacidad de maniobra.' : result.debtRatio > 20 ? 'La deuda es relevante pero todavía manejable si no aumentan las cuotas.' : result.debtPayment > 0 ? 'La carga de deuda se mantiene en un rango moderado.' : 'No se registraron cuotas mensuales de deuda.';
     document.querySelector('#networth-reading').textContent = result.netWorth < 0 ? 'El saldo es negativo: las obligaciones pendientes superan las reservas y activos.' : result.netWorth === 0 ? 'Los activos y obligaciones se encuentran equilibrados, sin patrimonio neto acumulado.' : 'Existe patrimonio positivo después de descontar todas las obligaciones declaradas.';
@@ -152,7 +144,6 @@
     document.querySelector('#formula-essential').textContent = `${money.format(number('housing'))} vivienda + ${money.format(number('food'))} alimentación + ${money.format(number('transport'))} transporte + ${money.format(number('utilities'))} servicios + ${money.format(number('educationHealth'))} educación/salud + ${money.format(number('otherEssential'))} otros = ${money.format(result.essential)}; ${money.format(result.essential)} ÷ ${money.format(result.income)} = ${percent(result.essentialRatio)}.`;
     document.querySelector('#formula-leisure').textContent = `${money.format(number('leisure'))} ocio/suscripciones + ${money.format(number('personal'))} compras = ${money.format(result.discretionary)}; ${money.format(result.discretionary)} ÷ ${money.format(result.income)} = ${percent(result.leisureRatio)}.`;
     document.querySelector('#formula-debt').textContent = `${money.format(number('personalDebt'))} préstamos + ${money.format(number('cardDebt'))} tarjetas + ${money.format(number('securedDebt'))} vehículo/hipoteca + ${money.format(number('otherDebt'))} otras cuotas = ${money.format(result.debtPayment)}; ${money.format(result.debtPayment)} ÷ ${money.format(result.income)} = ${percent(result.debtRatio)}.`;
-    document.querySelector('#formula-liquid').textContent = `(${money.format(number('liquid'))} ahorro disponible + ${money.format(number('emergency'))} fondo de emergencia) ÷ (${money.format(result.essential)} esenciales + ${money.format(result.debtPayment)} cuotas) = ${percent(result.liquidSolvency)} de cobertura mensual.`;
     document.querySelector('#formula-total').textContent = `(${money.format(result.liquid)} reservas + ${money.format(number('assets'))} inversiones/activos) ÷ (${money.format(number('debtBalance'))} deuda pendiente + ${money.format(number('otherLiabilities'))} otras obligaciones) = ${result.totalSolvency === Infinity ? 'sin obligaciones registradas' : percent(result.totalSolvency)}.`;
     document.querySelector('#formula-saving').textContent = `${money.format(result.discretionary)} de ocio × ${Math.round(result.savingShare * 100)}% = ${money.format(result.suggestedSaving)} de ahorro mensual sugerido; × 12 = ${money.format(result.suggestedSaving * 12)} anual.`;
 
