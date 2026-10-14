@@ -7,11 +7,32 @@ const coverHint = document.querySelector('.cover-transition-hint b');
 let current = Math.max(0, Math.min(slides.length - 1, Number(location.hash.replace('#','')) - 1 || 0));
 let coverStage = 0;
 
+function resetCoverScroll() {
+  if (!cover) return;
+  cover.scrollTop = 0;
+  cover.scrollLeft = 0;
+  requestAnimationFrame(() => {
+    cover.scrollTop = 0;
+    cover.scrollLeft = 0;
+  });
+}
+
+function resetSlideScroll(slide) {
+  if (!slide) return;
+  slide.scrollTop = 0;
+  slide.scrollLeft = 0;
+  requestAnimationFrame(() => {
+    slide.scrollTop = 0;
+    slide.scrollLeft = 0;
+  });
+}
+
 function setCoverStage(stage) {
   coverStage = stage ? 1 : 0;
   cover?.classList.toggle('is-profile-revealed', coverStage === 1);
   cover?.querySelector('.speaker-profile')?.setAttribute('aria-hidden', String(coverStage === 0));
   if (coverHint) coverHint.textContent = coverStage === 0 ? 'Conoce al expositor' : 'Continuar al recorrido';
+  if (coverStage === 0) resetCoverScroll();
   previousButton.disabled = current === 0 && coverStage === 0;
 }
 
@@ -25,8 +46,10 @@ function showSlide(index) {
     slide.setAttribute('aria-hidden', String(!isCurrent));
   });
   void slides[current].offsetWidth;
+  resetSlideScroll(slides[current]);
   history.replaceState(null, '', `#${current + 1}`);
   if (current !== 0) setCoverStage(0);
+  else if (coverStage === 0) resetCoverScroll();
   previousButton.disabled = current === 0 && coverStage === 0;
   nextButton.disabled = current === slides.length - 1;
 }
@@ -52,6 +75,10 @@ nextButton.addEventListener('click', goForward);
 fullscreenButton.addEventListener('click', async () => {
   if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
   else await document.exitFullscreen();
+});
+
+window.addEventListener('pageshow', () => {
+  if (current === 0 && coverStage === 0) resetCoverScroll();
 });
 
 // Safari móvil puede reservar el gesto cuando comienza sobre elementos con
