@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#02090b" />
     <title>Finanzas Sin Filtro | Mtro. Luis Valladares</title>
-    <link rel="stylesheet" href="styles.css?v=68" />
+    <link rel="stylesheet" href="styles.css?v=69" />
   </head>
   <body>
     <main class="deck" aria-live="polite">
@@ -79,7 +79,7 @@
           </article>
         </div>
 
-        <footer class="strategy-footer"><span>Finanzas Sin Filtro</span><b>02 / 19</b></footer>
+        <footer class="strategy-footer"><span>Finanzas Sin Filtro</span><b>02 / 20</b></footer>
       </section>
 
       <section class="slide reality" data-slide="3" aria-label="Realidad Financiera sin Filtro">
@@ -126,7 +126,7 @@
           <div class="reality-line" aria-hidden="true"></div>
           <p>Lo que no se mide,<br /><strong>no se transforma.</strong></p>
         </div>
-        <footer class="reality-footer"><span>Finanzas Sin Filtro</span><b>03 / 19</b></footer>
+        <footer class="reality-footer"><span>Finanzas Sin Filtro</span><b>03 / 20</b></footer>
       </section>
 
       <section class="slide uncomfortable" data-slide="4" aria-label="La pregunta que incomoda">
@@ -138,7 +138,7 @@
           <p>¿El problema es cuánto ganamos<br />o cómo administramos lo que recibimos?</p>
         </div>
         <div class="reflection-prompt"><span>Haz memoria</span><b>¿A dónde fue tu dinero el último mes?</b></div>
-        <footer class="slide-footer"><span>Finanzas Sin Filtro</span><b>04 / 19</b></footer>
+        <footer class="slide-footer"><span>Finanzas Sin Filtro</span><b>04 / 20</b></footer>
       </section>
 
       <section class="slide paradox" data-slide="5" aria-label="La paradoja del ingreso">
@@ -171,10 +171,43 @@
           </article>
         </div>
         <div class="paradox-question">¿Ganar más significa tener mayor estabilidad financiera?</div>
-        <footer class="slide-footer"><span>Finanzas Sin Filtro</span><b>05 / 19</b></footer>
+        <footer class="slide-footer"><span>Finanzas Sin Filtro</span><b>05 / 20</b></footer>
       </section>
 
-      <section class="slide perspective" data-slide="6" aria-label="La pregunta que cambia la perspectiva">
+      <section class="slide wealth-liquidity" data-slide="6" aria-label="Patrimonio versus liquidez">
+        <header class="chapter-meta"><span>04 · Patrimonio vs. liquidez</span><b>Comparación pedagógica</b></header>
+        <div class="wealth-liquidity-heading">
+          <span class="section-label">Dos dimensiones de tu salud financiera</span>
+          <h2>¿Estás bien <strong>económicamente</strong>,<br />pero mal <em>financieramente?</em></h2>
+          <p>Patrimonio y flujo de caja cuentan historias diferentes.</p>
+        </div>
+        <div class="wealth-liquidity-grid">
+          <article class="wealth-panel wealth-panel-assets">
+            <div class="wealth-panel-title"><span aria-hidden="true">⌂</span><div><small>Patrimonio</small><h3>Lo que posees</h3></div></div>
+            <label><span>Activos totales</span><span class="wealth-input">$ <input id="wealth-assets" type="number" min="0" step="1000" value="220000" aria-label="Activos totales" /></span></label>
+            <label><span>Pasivos totales</span><span class="wealth-input">$ <input id="wealth-liabilities" type="number" min="0" step="1000" value="20000" aria-label="Pasivos totales" /></span></label>
+            <div class="wealth-result"><span>Patrimonio neto</span><strong id="wealth-net-worth">$200,000</strong></div>
+            <p class="wealth-formula">Patrimonio = Activos − Pasivos</p>
+          </article>
+          <article class="wealth-panel wealth-panel-cash">
+            <div class="wealth-panel-title"><span aria-hidden="true">$</span><div><small>Liquidez</small><h3>Lo que puedes pagar hoy</h3></div></div>
+            <label><span>Efectivo disponible</span><span class="wealth-input">$ <input id="wealth-cash" type="number" min="0" step="100" value="500" aria-label="Efectivo disponible" /></span></label>
+            <label><span>Obligaciones inmediatas</span><span class="wealth-input">$ <input id="wealth-due" type="number" min="0" step="100" value="2000" aria-label="Obligaciones inmediatas" /></span></label>
+            <div class="wealth-result"><span>Brecha de liquidez</span><strong id="wealth-gap">−$1,500</strong></div>
+            <div class="liquidity-bars" aria-label="Comparación entre efectivo disponible y obligaciones inmediatas">
+              <div><span>Efectivo</span><i><b id="wealth-cash-bar"></b></i><strong id="wealth-cash-label">$500</strong></div>
+              <div><span>Exigible</span><i><b id="wealth-due-bar"></b></i><strong id="wealth-due-label">$2,000</strong></div>
+            </div>
+            <p class="wealth-formula">Brecha = Efectivo − Obligaciones inmediatas</p>
+          </article>
+        </div>
+        <div class="wealth-takeaway"><strong>PUEDES TENER PATRIMONIO Y NO TENER LIQUIDEZ</strong><span>El patrimonio representa tu riqueza neta; el flujo de caja revela tu capacidad para sostener tus compromisos.</span></div>
+        <p class="wealth-caveat">Comparación pedagógica: la situación económica y financiera incluye más factores que patrimonio y efectivo.</p>
+        <aside class="speaker-notes" hidden>Imaginemos una persona con propiedades y activos por $220,000 y obligaciones totales de $20,000. Su patrimonio neto asciende a $200,000. Sin embargo, solamente dispone de $500 para enfrentar pagos inmediatos de $2,000. Esta persona cuenta con una posición patrimonial sólida, pero enfrenta una dificultad financiera de corto plazo. Si no recibe dinero a tiempo, tendrá que obtener liquidez mediante ingresos, financiamiento o venta de activos. El verdadero equilibrio financiero consiste en construir patrimonio sin descuidar la disponibilidad de efectivo.</aside>
+        <footer class="slide-footer"><span>Finanzas Sin Filtro · Bloque 2</span><b>06 / 20</b></footer>
+      </section>
+
+      <section class="slide perspective" data-slide="7" aria-label="La pregunta que cambia la perspectiva">
         <header class="chapter-meta"><span>05 · Del ingreso al patrimonio</span><b>Pregunta 02</b></header>
         <div class="perspective-copy">
           <span class="section-label">Si mañana ganas el doble…</span>
@@ -186,10 +219,10 @@
           <div class="double-line"></div>
           <div class="double-ring ring-choice"><span>?</span><small>Decisión</small></div>
         </div>
-        <footer class="slide-footer"><span>Finanzas Sin Filtro</span><b>06 / 19</b></footer>
+        <footer class="slide-footer"><span>Finanzas Sin Filtro</span><b>07 / 20</b></footer>
       </section>
 
-      <section class="slide manifesto" data-slide="7" aria-label="Convertir el dinero en libertad">
+      <section class="slide manifesto" data-slide="8" aria-label="Convertir el dinero en libertad">
         <div class="manifesto-aura" aria-hidden="true"></div>
         <header class="chapter-meta"><span>06 · Reflexión central</span><b>De ingreso a libertad</b></header>
         <div class="manifesto-copy">
@@ -211,10 +244,10 @@
             <b>03</b><span>Patrimonio</span><strong>Oportunidades</strong>
           </article>
         </div>
-        <footer class="slide-footer"><span>Finanzas Sin Filtro</span><b>07 / 19</b></footer>
+        <footer class="slide-footer"><span>Finanzas Sin Filtro</span><b>08 / 20</b></footer>
       </section>
 
-      <section class="slide xray" data-slide="8" aria-label="Radiografía de tus finanzas">
+      <section class="slide xray" data-slide="9" aria-label="Radiografía de tus finanzas">
         <div class="xray-scan" aria-hidden="true"></div>
         <header class="reality-meta">
           <span>02 · Radiografía</span>
@@ -250,10 +283,10 @@
           </svg>
           <span>LECTURA FINANCIERA</span>
         </div>
-        <footer class="reality-footer"><span>Finanzas Sin Filtro</span><b>08 / 19</b></footer>
+        <footer class="reality-footer"><span>Finanzas Sin Filtro</span><b>09 / 20</b></footer>
       </section>
 
-      <section class="slide diagnostic-app" data-slide="9" aria-label="Radiografía financiera interactiva">
+      <section class="slide diagnostic-app" data-slide="10" aria-label="Radiografía financiera interactiva">
         <header class="diagnostic-app-header">
           <span>02 · Radiografía interactiva</span>
           <div class="diagnostic-progress"><i id="diagnostic-progress-bar"></i></div>
@@ -370,10 +403,10 @@
             <div class="result-actions"><button type="button" class="diagnostic-secondary" data-action="reset">Borrar mis datos</button><button type="button" class="diagnostic-secondary" data-action="print">Descargar / imprimir PDF</button><button type="button" class="diagnostic-primary" data-action="plan">Construir mi plan financiero</button></div>
           </section>
         </div>
-        <footer class="slide-footer"><span>Finanzas Sin Filtro · Datos locales</span><b>09 / 19</b></footer>
+        <footer class="slide-footer"><span>Finanzas Sin Filtro · Datos locales</span><b>10 / 20</b></footer>
       </section>
 
-      <section class="slide reality debt-opening" data-slide="10" aria-label="Las deudas: herramienta o trampa">
+      <section class="slide reality debt-opening" data-slide="11" aria-label="Las deudas: herramienta o trampa">
         <div class="reality-scan" aria-hidden="true"></div>
         <div class="reality-visual debt-visual" aria-hidden="true">
           <svg viewBox="0 0 620 420" role="presentation">
@@ -391,10 +424,10 @@
           <div class="reality-line" aria-hidden="true"></div>
           <p>La deuda no es buena ni mala:<br /><strong>depende de lo que construye y de cuánto cuesta.</strong></p>
         </div>
-        <footer class="reality-footer"><span>Finanzas Sin Filtro</span><b>10 / 19</b></footer>
+        <footer class="reality-footer"><span>Finanzas Sin Filtro</span><b>11 / 20</b></footer>
       </section>
 
-      <section class="slide debt-case capital-choice" data-slide="11" aria-label="Dinero propio o prestado">
+      <section class="slide debt-case capital-choice" data-slide="12" aria-label="Dinero propio o prestado">
         <header class="debt-meta"><span>03 · Las deudas</span><b>Estructura de capital · 01:30</b></header>
         <div class="debt-title leverage-table-title"><span class="section-label">Mismo negocio. Dos decisiones de financiamiento.</span><h2>¿La deuda mejora o reduce<br /><strong>la utilidad del negocio?</strong></h2><p>Modifica los campos amarillos. La tabla compara el resultado sin deuda y con deuda para revelar cuándo el apalancamiento es herramienta o trampa.</p></div>
         <form class="leverage-sheet" id="debt-lab" aria-label="Tabla interactiva de apalancamiento">
@@ -422,10 +455,10 @@
           </aside>
         </form>
         <aside class="speaker-notes" hidden>La deuda permite financiar activos con recursos de terceros sin aportar todo el capital propio, pero crea una obligación financiera que debe pagarse incluso si el rendimiento cae.</aside>
-        <footer class="slide-footer"><span>Finanzas Sin Filtro · Bloque 3</span><b>11 / 19</b></footer>
+        <footer class="slide-footer"><span>Finanzas Sin Filtro · Bloque 3</span><b>12 / 20</b></footer>
       </section>
 
-      <section class="slide debt-case debt-myths" data-slide="12" aria-label="Los tres mitos sobre el endeudamiento">
+      <section class="slide debt-case debt-myths" data-slide="13" aria-label="Los tres mitos sobre el endeudamiento">
         <header class="debt-meta"><span>03 · Las deudas</span><b>Cierre del bloque · 01:30</b></header>
         <div class="debt-title myths-title"><span class="section-label">Tres preguntas para decidir mejor</span><h2>Los 3 mitos sobre<br /><strong>el endeudamiento.</strong></h2><p>La deuda se evalúa por lo que produce, lo que cuesta y el flujo que exige.</p></div>
         <div class="myths-grid">
@@ -435,10 +468,10 @@
         </div>
         <div class="myths-close"><span>Idea de cierre</span><strong>La deuda es herramienta cuando genera más valor del que cuesta; es trampa cuando consume el flujo que debía crear.</strong></div>
         <aside class="speaker-notes" hidden>La deuda no se juzga por existir, sino por su destino, su costo y la capacidad de pago. Vender más no basta: el crecimiento debe convertirse en utilidad y efectivo suficiente para atender la obligación.</aside>
-        <footer class="slide-footer"><span>Finanzas Sin Filtro · Bloque 3</span><b>12 / 19</b></footer>
+        <footer class="slide-footer"><span>Finanzas Sin Filtro · Bloque 3</span><b>13 / 20</b></footer>
       </section>
 
-      <section class="slide reality savings-opening" data-slide="13" aria-label="El ahorro y la estabilidad financiera">
+      <section class="slide reality savings-opening" data-slide="14" aria-label="El ahorro y la estabilidad financiera">
         <div class="reality-scan" aria-hidden="true"></div>
         <div class="reality-visual savings-visual" aria-hidden="true">
           <svg viewBox="0 0 620 420" role="presentation">
@@ -456,10 +489,10 @@
           <div class="reality-line" aria-hidden="true"></div>
           <p>Ahorrar no es guardar lo que sobra:<br /><strong>es construir protección económica con intención.</strong></p>
         </div>
-        <footer class="reality-footer"><span>Finanzas Sin Filtro</span><b>13 / 19</b></footer>
+        <footer class="reality-footer"><span>Finanzas Sin Filtro</span><b>14 / 20</b></footer>
       </section>
 
-      <section class="slide debt-case savings-questions" data-slide="14" aria-label="Tres preguntas principales sobre el ahorro">
+      <section class="slide debt-case savings-questions" data-slide="15" aria-label="Tres preguntas principales sobre el ahorro">
         <header class="debt-meta"><span>04 · El ahorro</span><b>Tres decisiones clave · 02:00</b></header>
         <div class="debt-title savings-question-title"><span class="section-label">Ahorrar, proteger e invertir</span><h2>Las tres preguntas<br /><strong>principales.</strong></h2><p>El ahorro crea liquidez; la inversión busca rendimiento. Cada decisión responde a un objetivo diferente.</p></div>
         <div class="savings-question-grid">
@@ -469,10 +502,10 @@
         </div>
         <div class="savings-question-close"><span>Principio central</span><strong>Primero protege tu liquidez; después invierte el dinero que puede permanecer trabajando.</strong></div>
         <aside class="speaker-notes" hidden>El ahorro debe planificarse. El patrimonio no sustituye la liquidez, y ahorrar e invertir no compiten: cumplen funciones distintas dentro de una estrategia financiera estable.</aside>
-        <footer class="slide-footer"><span>Finanzas Sin Filtro · Bloque 4</span><b>14 / 19</b></footer>
+        <footer class="slide-footer"><span>Finanzas Sin Filtro · Bloque 4</span><b>15 / 20</b></footer>
       </section>
 
-      <section class="slide reality investment-opening" data-slide="15" aria-label="Inversión y construcción de patrimonio">
+      <section class="slide reality investment-opening" data-slide="16" aria-label="Inversión y construcción de patrimonio">
         <div class="reality-scan" aria-hidden="true"></div>
         <div class="reality-visual investment-visual" aria-hidden="true">
           <svg viewBox="0 0 620 420" role="presentation">
@@ -491,10 +524,10 @@
           <div class="reality-line" aria-hidden="true"></div>
           <p>Invertir no es perseguir ganancias:<br /><strong>es convertir tiempo, disciplina y riesgo en patrimonio.</strong></p>
         </div>
-        <footer class="reality-footer"><span>Finanzas Sin Filtro</span><b>15 / 19</b></footer>
+        <footer class="reality-footer"><span>Finanzas Sin Filtro</span><b>16 / 20</b></footer>
       </section>
 
-      <section class="slide investment-app investment-question" data-slide="16" aria-label="Parámetros del proyecto de inversión">
+      <section class="slide investment-app investment-question" data-slide="17" aria-label="Parámetros del proyecto de inversión">
         <header class="investment-meta"><span>05 · Evaluación de proyectos</span><b>Paso 1 · Parámetros</b></header>
         <div class="investment-app-title"><span>La decisión antes del cálculo</span><h2>¿Invertirías <strong>$5,000</strong> para recibir<br />$2,200 durante tres años?</h2><p>Modifica los campos amarillos. Los datos se conservarán en las siguientes láminas.</p></div>
         <form class="project-parameters" id="investment-form">
@@ -506,10 +539,10 @@
         </form>
         <div class="project-flow-editor"><div><span>Flujos netos futuros</span><small>Cada período puede ser positivo, negativo o cero.</small></div><div id="project-flow-inputs"></div></div>
         <div class="investment-prompt"><span>Pregunta al público</span><strong>¿Es suficiente recibir más dinero del que invertimos para afirmar que el proyecto crea valor?</strong></div>
-        <footer class="slide-footer"><span>Finanzas Sin Filtro · Bloque 5</span><b>16 / 19</b></footer>
+        <footer class="slide-footer"><span>Finanzas Sin Filtro · Bloque 5</span><b>17 / 20</b></footer>
       </section>
 
-      <section class="slide investment-app investment-analysis-slide" data-slide="17" aria-label="Explicación del VAN y la TIR">
+      <section class="slide investment-app investment-analysis-slide" data-slide="18" aria-label="Explicación del VAN y la TIR">
         <header class="investment-meta"><span>05 · Evaluación de proyectos</span><b>Flujos, VAN y TIR</b></header>
         <div class="investment-app-title compact analysis-title"><span>El dinero cambia de valor con el tiempo</span><h2>¿La inversión <strong>crea valor?</strong></h2><p>Descontamos cada flujo, calculamos el VAN y encontramos la tasa donde el VAN se vuelve cero.</p></div>
         <div class="investment-analysis">
@@ -521,10 +554,10 @@
           <article class="van-chart-panel"><header><strong>Curva del VAN</strong><small>Cuando la curva cruza $0 encontramos la TIR.</small></header><svg id="npv-chart" viewBox="0 0 620 340" role="img" aria-label="Curva del valor actual neto"></svg><div class="van-decision" id="investment-decision"></div></article>
         </div>
         <div class="formula-note"><span>Lectura</span><strong>VAN = suma de flujos descontados − inversión inicial</strong><p>Si el VAN es positivo a la tasa requerida, la inversión agrega valor. La TIR es la tasa que hace VAN = $0.</p></div>
-        <footer class="slide-footer"><span>Finanzas Sin Filtro · Bloque 5</span><b>17 / 19</b></footer>
+        <footer class="slide-footer"><span>Finanzas Sin Filtro · Bloque 5</span><b>18 / 20</b></footer>
       </section>
 
-      <section class="slide reality plan-opening" data-slide="18" aria-label="Tu plan financiero de 90 días">
+      <section class="slide reality plan-opening" data-slide="19" aria-label="Tu plan financiero de 90 días">
         <div class="reality-scan" aria-hidden="true"></div>
         <div class="reality-visual plan-visual" aria-hidden="true">
           <svg viewBox="0 0 650 430" role="presentation">
@@ -542,10 +575,10 @@
           <div class="reality-line" aria-hidden="true"></div>
           <p>La transformación no sucede en una sola decisión:<br /><strong>se construye con acciones concretas y seguimiento.</strong></p>
         </div>
-        <footer class="reality-footer"><span>Finanzas Sin Filtro</span><b>18 / 19</b></footer>
+        <footer class="reality-footer"><span>Finanzas Sin Filtro</span><b>19 / 20</b></footer>
       </section>
 
-      <section class="slide debt-case plan-roadmap" data-slide="19" aria-label="Plan financiero de 90 días por etapas">
+      <section class="slide debt-case plan-roadmap" data-slide="20" aria-label="Plan financiero de 90 días por etapas">
         <header class="debt-meta"><span>06 · Plan de acción</span><b>Hoja de ruta · 90 días</b></header>
         <div class="debt-title plan-roadmap-title"><span class="section-label">Del diagnóstico al seguimiento</span><h2>Tu ruta financiera<br /><strong>en seis etapas.</strong></h2><p>Un paso cada quince días para convertir el aprendizaje en resultados medibles.</p></div>
         <div class="plan-table" role="table" aria-label="Plan financiero de 90 días">
@@ -558,7 +591,7 @@
           <div class="plan-row" role="row"><strong>Días 76–90</strong><span>Medición y seguimiento</span><p>Compara indicadores iniciales con los actuales y ajusta tu estrategia.</p><em>Informe de avances y nuevas metas financieras.</em></div>
         </div>
         <div class="plan-close"><span>Principio final</span><strong>Lo que se mide, se puede mejorar; lo que se revisa, se convierte en hábito.</strong></div>
-        <footer class="slide-footer"><span>Finanzas Sin Filtro · Plan de 90 días</span><b>19 / 19</b></footer>
+        <footer class="slide-footer"><span>Finanzas Sin Filtro · Plan de 90 días</span><b>20 / 20</b></footer>
       </section>
 
       <nav class="deck-controls" aria-label="Controles de presentación">
@@ -580,5 +613,6 @@
     <script src="investment-simulator.js?v=4"></script>
     <script src="deck-v3.js?v=32"></script>
     <script src="diagnostic.js?v=39"></script>
+    <script src="wealth-liquidity.js?v=1"></script>
   </body>
 </html>
