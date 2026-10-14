@@ -64,6 +64,10 @@
 
   function svgText(x, y, value, anchor = 'middle', color = '#789396', size = 11) { return `<text x="${x}" y="${y}" text-anchor="${anchor}" fill="${color}" font-size="${size}" font-family="Inter,Arial">${value}</text>`; }
 
+  function svgValueLabel(x, y, value, color) {
+    return `<text x="${x}" y="${y}" text-anchor="middle" fill="${color}" stroke="#031315" stroke-width="4" paint-order="stroke" stroke-linejoin="round" font-size="9" font-weight="700" font-family="Inter,Arial">VAN ${value}</text>`;
+  }
+
   function renderNpvChart(config, result) {
     const svg = document.querySelector('#npv-chart');
     const maxRate = Math.max(.35, config.rate * 2.5, result.irr.status === 'unique' ? result.irr.roots[0] * 1.8 : 0);
@@ -77,7 +81,19 @@
     const path = points.map((point, index) => `${index ? 'L' : 'M'}${x(point.rate).toFixed(1)} ${y(point.value).toFixed(1)}`).join(' ');
     html += `<line x1="62" y1="${zeroY}" x2="587" y2="${zeroY}" stroke="#789396"/><path d="${path}" fill="none" stroke="#71e4ea" stroke-width="4"/>`;
     const requiredX = x(config.rate); html += `<line x1="${requiredX}" y1="40" x2="${requiredX}" y2="285" stroke="#f4cb7e" stroke-dasharray="6 6"/>${svgText(requiredX,28,`Tasa ${percent(config.rate)}`,'middle','#f4cb7e',10)}`;
-    if (result.irr.status === 'unique' && result.irr.roots[0] >= 0 && result.irr.roots[0] <= maxRate) { const irrX = x(result.irr.roots[0]); html += `<circle cx="${irrX}" cy="${zeroY}" r="7" fill="#75d6a1"/>${svgText(irrX,zeroY-13,`TIR ${percent(result.irr.roots[0])}`,'middle','#75d6a1',10)}`; }
+    const referenceRates = rateSet(config, result).filter(rate => rate >= 0 && rate <= maxRate);
+    referenceRates.forEach((rate, index) => {
+      const value = finance.npv(config.investment, config.flows, rate);
+      const markerX = x(rate); const markerY = y(value);
+      const isRequired = Math.abs(rate - config.rate) < 1e-6;
+      const isIrr = result.irr.status === 'unique' && Math.abs(rate - result.irr.roots[0]) < 1e-5;
+      const color = isIrr ? '#75d6a1' : isRequired ? '#f4cb7e' : '#d7f4f5';
+      const labelOffset = isIrr ? 31 : index % 2 === 0 ? -13 : 20;
+      const labelY = Math.max(51, Math.min(280, markerY + labelOffset));
+      html += `<circle cx="${markerX}" cy="${markerY}" r="${isIrr ? 7 : 4}" fill="${color}" stroke="#031315" stroke-width="2"/>`;
+      html += svgValueLabel(markerX, labelY, money(Math.abs(value) < .01 ? 0 : value), color);
+    });
+    if (result.irr.status === 'unique' && result.irr.roots[0] >= 0 && result.irr.roots[0] <= maxRate) { const irrX = x(result.irr.roots[0]); html += svgText(irrX,zeroY-13,`TIR ${percent(result.irr.roots[0])}`,'middle','#75d6a1',10); }
     svg.innerHTML = html;
   }
 
