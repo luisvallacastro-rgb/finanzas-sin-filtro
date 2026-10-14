@@ -2,7 +2,18 @@ const slides = [...document.querySelectorAll('.slide')];
 const previousButton = document.querySelector('#previous-slide');
 const nextButton = document.querySelector('#next-slide');
 const fullscreenButton = document.querySelector('#fullscreen-toggle');
+const cover = document.querySelector('.cover');
+const coverHint = document.querySelector('.cover-transition-hint b');
 let current = Math.max(0, Math.min(slides.length - 1, Number(location.hash.replace('#','')) - 1 || 0));
+let coverStage = 0;
+
+function setCoverStage(stage) {
+  coverStage = stage ? 1 : 0;
+  cover?.classList.toggle('is-profile-revealed', coverStage === 1);
+  cover?.querySelector('.speaker-profile')?.setAttribute('aria-hidden', String(coverStage === 0));
+  if (coverHint) coverHint.textContent = coverStage === 0 ? 'Conoce al expositor' : 'Continuar al recorrido';
+  previousButton.disabled = current === 0 && coverStage === 0;
+}
 
 function showSlide(index) {
   current = Math.max(0, Math.min(slides.length - 1, index));
@@ -15,17 +26,29 @@ function showSlide(index) {
   });
   void slides[current].offsetWidth;
   history.replaceState(null, '', `#${current + 1}`);
-  previousButton.disabled = current === 0;
+  if (current !== 0) setCoverStage(0);
+  previousButton.disabled = current === 0 && coverStage === 0;
   nextButton.disabled = current === slides.length - 1;
+}
+
+function goForward() {
+  if (current === 0 && coverStage === 0) { setCoverStage(1); return; }
+  showSlide(current + 1);
+}
+
+function goBack() {
+  if (current === 0 && coverStage === 1) { setCoverStage(0); return; }
+  if (current === 1) { showSlide(0); setCoverStage(1); return; }
+  showSlide(current - 1);
 }
 
 document.addEventListener('keydown', event => {
   if (event.target.closest('input, select, textarea, button, [contenteditable="true"]')) return;
-  if (['ArrowRight','PageDown',' '].includes(event.key)) showSlide(current + 1);
-  if (['ArrowLeft','PageUp'].includes(event.key)) showSlide(current - 1);
+  if (['ArrowRight','PageDown',' '].includes(event.key)) goForward();
+  if (['ArrowLeft','PageUp'].includes(event.key)) goBack();
 });
-previousButton.addEventListener('click', () => showSlide(current - 1));
-nextButton.addEventListener('click', () => showSlide(current + 1));
+previousButton.addEventListener('click', goBack);
+nextButton.addEventListener('click', goForward);
 fullscreenButton.addEventListener('click', async () => {
   if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
   else await document.exitFullscreen();
